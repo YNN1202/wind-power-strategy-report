@@ -1,0 +1,1093 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>风电行业战略规划与机会点分析报告 V2.0</title>
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js"></script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, "Microsoft YaHei", "PingFang SC", sans-serif; background: #0a0e27; color: #e0e6ed; line-height: 1.8; }
+        .hero { background: linear-gradient(135deg, #0d1b3e 0%, #1a3a6b 50%, #0a2540 100%); padding: 60px 0 50px; text-align: center; position: relative; border-bottom: 2px solid #2a5298; }
+        .hero::before { content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: radial-gradient(ellipse at 50% 50%, rgba(42, 82, 152, 0.3) 0%, transparent 70%); }
+        .hero h1 { font-size: 2.5em; background: linear-gradient(90deg, #60a5fa, #a78bfa, #60a5fa); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 10px; position: relative; }
+        .hero .subtitle { font-size: 1.1em; color: #94a3b8; position: relative; }
+        .hero .meta { margin-top: 15px; color: #64748b; font-size: 0.85em; position: relative; }
+        .container { max-width: 1400px; margin: 0 auto; padding: 30px 25px; }
+        .nav-tabs { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 30px; padding: 12px; background: rgba(15, 23, 42, 0.9); border-radius: 12px; border: 1px solid #1e3a5f; position: sticky; top: 0; z-index: 100; backdrop-filter: blur(10px); }
+        .nav-tab { padding: 8px 16px; border-radius: 8px; cursor: pointer; font-size: 0.85em; transition: all 0.3s; background: rgba(30, 58, 95, 0.5); border: 1px solid transparent; color: #94a3b8; }
+        .nav-tab:hover, .nav-tab.active { background: linear-gradient(135deg, #1e40af, #3b82f6); color: white; border-color: #60a5fa; }
+        .section { margin-bottom: 50px; display: none; }
+        .section.active { display: block; }
+        .section-header { display: flex; align-items: center; margin-bottom: 25px; padding-bottom: 12px; border-bottom: 2px solid #1e3a5f; }
+        .section-header .num { width: 45px; height: 45px; border-radius: 10px; background: linear-gradient(135deg, #1e40af, #3b82f6); display: flex; align-items: center; justify-content: center; font-size: 1.3em; font-weight: bold; margin-right: 12px; }
+        .section-header h2 { font-size: 1.6em; color: #e2e8f0; }
+        .card { background: rgba(15, 23, 42, 0.9); border: 1px solid #1e3a5f; border-radius: 14px; padding: 25px; margin-bottom: 20px; transition: transform 0.3s, box-shadow 0.3s; }
+        .card:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(59, 130, 246, 0.12); }
+        .card h3 { font-size: 1.2em; color: #60a5fa; margin-bottom: 12px; }
+        .card h4 { font-size: 1em; color: #a78bfa; margin: 15px 0 8px; }
+        .data-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 15px; margin: 15px 0; }
+        .data-item { background: rgba(30, 58, 95, 0.3); border: 1px solid #1e3a5f; border-radius: 10px; padding: 15px; text-align: center; }
+        .data-item .value { font-size: 1.8em; font-weight: bold; background: linear-gradient(90deg, #60a5fa, #a78bfa); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .data-item .label { color: #94a3b8; margin-top: 4px; font-size: 0.82em; }
+        .data-item .sub { font-size: 0.75em; color: #64748b; margin-top: 4px; }
+        .src { display: inline-block; font-size: 0.72em; color: #475569; padding: 2px 8px; background: rgba(30, 58, 95, 0.4); border-radius: 3px; text-decoration: none; margin: 3px 2px; transition: color 0.2s; }
+        .src:hover { color: #60a5fa; text-decoration: underline; }
+        .chart-box { width: 100%; height: 380px; margin: 15px 0; }
+        .chart-box-lg { height: 480px; }
+        table { width: 100%; border-collapse: collapse; margin: 15px 0; font-size: 0.85em; }
+        th { background: rgba(30, 64, 175, 0.3); padding: 10px 12px; text-align: left; border-bottom: 2px solid #3b82f6; color: #60a5fa; }
+        td { padding: 10px 12px; border-bottom: 1px solid #1e3a5f; vertical-align: top; }
+        tr:hover td { background: rgba(30, 58, 95, 0.2); }
+        .hl-box { background: linear-gradient(135deg, rgba(30, 64, 175, 0.15), rgba(59, 130, 246, 0.08)); border-left: 4px solid #3b82f6; padding: 15px 20px; border-radius: 0 10px 10px 0; margin: 15px 0; }
+        .hl-box.warn { border-left-color: #eab308; background: linear-gradient(135deg, rgba(234, 179, 8, 0.1), rgba(234, 179, 8, 0.05)); }
+        .hl-box.ok { border-left-color: #22c55e; background: linear-gradient(135deg, rgba(34, 197, 94, 0.1), rgba(34, 197, 94, 0.05)); }
+        .tag { display: inline-block; padding: 2px 8px; border-radius: 3px; font-size: 0.78em; margin: 2px; background: rgba(59, 130, 246, 0.2); color: #93c5fd; }
+        .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+        @media (max-width: 900px) { .two-col { grid-template-columns: 1fr; } }
+        ul { padding-left: 18px; }
+        li { margin: 6px 0; color: #cbd5e1; font-size: 0.92em; }
+        li::marker { color: #3b82f6; }
+        .footer { text-align: center; padding: 30px; border-top: 1px solid #1e3a5f; margin-top: 40px; color: #64748b; font-size: 0.85em; }
+        .predict-badge { display: inline-block; padding: 3px 10px; border-radius: 12px; font-size: 0.75em; font-weight: bold; background: rgba(239, 68, 68, 0.2); color: #f87171; margin-left: 8px; }
+        .timeline { position: relative; padding-left: 25px; margin: 15px 0; }
+        .timeline::before { content: ''; position: absolute; left: 8px; top: 0; bottom: 0; width: 2px; background: linear-gradient(to bottom, #3b82f6, #a78bfa); }
+        .tl-item { position: relative; margin-bottom: 15px; padding: 12px; background: rgba(30, 58, 95, 0.2); border-radius: 8px; }
+        .tl-item::before { content: ''; position: absolute; left: -21px; top: 16px; width: 10px; height: 10px; border-radius: 50%; background: #3b82f6; }
+        .tl-item .time { color: #60a5fa; font-size: 0.8em; font-weight: bold; }
+        .opp-card { background: rgba(15, 23, 42, 0.9); border: 1px solid #1e3a5f; border-radius: 14px; padding: 22px; margin-bottom: 18px; position: relative; overflow: hidden; }
+        .opp-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, #3b82f6, #a78bfa); }
+        .opp-card.top::before { background: linear-gradient(90deg, #f59e0b, #ef4444); }
+        .stars { color: #fbbf24; letter-spacing: 2px; }
+        .trend-up { color: #4ade80; }
+        .trend-dn { color: #f87171; }
+        .note { font-size: 0.78em; color: #64748b; font-style: italic; margin-top: 8px; }
+    </style>
+</head>
+<body>
+
+<div class="hero">
+    <h1>风电行业战略规划与机会点分析报告</h1>
+    <p class="subtitle">三一重能战略规划参考 | 项目分类 × 区域分类 × 客户分类 三维深度分析</p>
+    <p class="meta">报告版本 V2.0 | 2026年7月 | 数据范围：2024-2026年 + 2029年预测 | 数据来源：国家能源局、国家发改委、BNEF、GWEC、CWEA等</p>
+</div>
+
+<div class="container">
+    <div class="nav-tabs">
+        <div class="nav-tab active" onclick="showSection('overview')">总览</div>
+        <div class="nav-tab" onclick="showSection('dim1')">项目分类维度</div>
+        <div class="nav-tab" onclick="showSection('dim2')">区域分类维度</div>
+        <div class="nav-tab" onclick="showSection('dim3')">客户分类维度</div>
+        <div class="nav-tab" onclick="showSection('cross')">交叉机会矩阵</div>
+        <div class="nav-tab" onclick="showSection('policy')">政策梳理</div>
+        <div class="nav-tab" onclick="showSection('predict')">2029预测模块</div>
+    </div>
+
+    <!-- ========== 总览 ========== -->
+    <div id="overview" class="section active">
+        <div class="section-header"><div class="num">0</div><h2>分析框架与核心数据总览</h2></div>
+        <div class="card">
+            <h3>三维分析框架</h3>
+            <table>
+                <thead><tr><th>维度</th><th>L1 分类</th><th>细分/备注</th></tr></thead>
+                <tbody>
+                    <tr><td><strong>项目分类</strong></td><td><span class="tag">大基地</span><span class="tag">常规集中式</span><span class="tag">分散式</span><span class="tag">绿电直连</span><span class="tag">存量改造</span></td><td>大基地含：三北沙戈荒基地、西南水风光一体化基地；常规含省级连片基地(≥50万kW)、常规风电(<5万kW)；分散式单项目<5万kW；存量改造=以大代小</td></tr>
+                    <tr><td><strong>区域分类</strong></td><td><span class="tag">陆上</span><span class="tag">海上</span></td><td>陆上：新蒙区域、甘宁青区域、东北区域、中东南区域、西南区域、高海拔区域；海上：抗台风区域、近海区域、深远海区域</td></tr>
+                    <tr><td><strong>客户分类</strong></td><td><span class="tag">发电企业</span><span class="tag">负荷企业</span><span class="tag">传统能源企业</span><span class="tag">转售企业</span></td><td>发电企业：纯风电投资运营；负荷企业：自身稳定负荷，自发自用为主；传统能源：油气煤炭开采储运；转售：开发建成出售为主</td></tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="card">
+            <h3>2024-2025年全国风电核心指标</h3>
+            <div class="data-grid">
+                <div class="data-item">
+                    <div class="value">7982万kW</div>
+                    <div class="label">2024年新增风电装机</div>
+                    <div class="sub">陆上7579万 | 海上404万</div>
+                </div>
+                <div class="data-item">
+                    <div class="value">1.2亿kW</div>
+                    <div class="label">2025年新增风电装机</div>
+                    <div class="sub">陆上1.1亿 | 海上659万 <span class="trend-up">↑51%</span></div>
+                </div>
+                <div class="data-item">
+                    <div class="value">6.4亿kW</div>
+                    <div class="label">2025年底累计风电装机</div>
+                    <div class="sub">同比增长23%</div>
+                </div>
+                <div class="data-item">
+                    <div class="value">1.13万亿kWh</div>
+                    <div class="label">2025年风电发电量</div>
+                    <div class="sub">同比增长13%</div>
+                </div>
+                <div class="data-item">
+                    <div class="value">79%</div>
+                    <div class="label">三北地区占2025年新增</div>
+                    <div class="sub">2024年为75%</div>
+                </div>
+                <div class="data-item">
+                    <div class="value">94%</div>
+                    <div class="label">2025年全国风电利用率</div>
+                    <div class="sub">2024年为95.9%</div>
+                </div>
+            </div>
+            <a class="src" href="https://www.nea.gov.cn/20260212/742b8c6a078347b0b39de676c05c5d58/c.html" target="_blank">来源：国家能源局-2025年可再生能源并网运行情况</a>
+            <a class="src" href="https://www.nea.gov.cn/20250221/e10f363cabe3458aaf78ba4558970054/c.html" target="_blank">来源：国家能源局-2024年可再生能源并网运行情况</a>
+        </div>
+        <div class="card">
+            <h3>2024 vs 2025 装机结构对比</h3>
+            <div class="chart-box" id="chart-overview-compare"></div>
+        </div>
+    </div>
+
+    <!-- ========== 维度1：项目分类 ========== -->
+    <div id="dim1" class="section">
+        <div class="section-header"><div class="num">1</div><h2>项目分类维度分析</h2></div>
+
+        <!-- 1.1 大基地 -->
+        <div class="card">
+            <h3>1.1 大基地项目</h3>
+            <h4>1.1.1 三北沙戈荒大型风光基地</h4>
+            <div class="data-grid">
+                <div class="data-item">
+                    <div class="value">9736万kW</div>
+                    <div class="label">第一批基地规划总装机</div>
+                    <div class="sub">18省区50个基地 | 2024底已投产9079万kW</div>
+                </div>
+                <div class="data-item">
+                    <div class="value">455GW</div>
+                    <div class="label">十四五+十五五规划总规模</div>
+                    <div class="sub">含全部批次</div>
+                </div>
+                <div class="data-item">
+                    <div class="value">605GW</div>
+                    <div class="label">十五五装机增长空间</div>
+                    <div class="sub">含后续批次规划</div>
+                </div>
+                <div class="data-item">
+                    <div class="value">~5000万kW</div>
+                    <div class="label">第二三批2025年投产目标</div>
+                    <div class="sub">国家能源局指导意见</div>
+                </div>
+            </div>
+            <table>
+                <thead><tr><th>指标</th><th>2024年</th><th>2025年</th><th>2026年(E)</th><th>数据来源</th></tr></thead>
+                <tbody>
+                    <tr><td>第一批基地累计投产</td><td>9079万kW(占95%)</td><td>~9736万kW(全部)</td><td>9736万kW</td><td><a class="src" href="https://www.nea.gov.cn/20250123/30c42bd239f64dee8a09363df78adf90/c.html" target="_blank">国家能源局2025.1.23发布会</a></td></tr>
+                    <tr><td>第二三批推进规模</td><td>开工建设中</td><td>力争投产5000万kW左右</td><td>持续投产+后续批次</td><td><a class="src" href="https://www.news.cn/politics/20250308/f53e6b0c752f46729087a57b7d132a1e/c.html" target="_blank">新华网-李创军(能源局新能源司司长)两会表态</a></td></tr>
+                    <tr><td>特高压配套通道</td><td>多条在建</td><td>部分新增投运</td><td>规划新增</td><td><a class="src" href="https://www.tmtpost.com/7975787.html" target="_blank">钛媒体</a>（定性描述，无精确通道数量）</td></tr>
+                </tbody>
+            </table>
+            <div class="note">注：第一批基地数据来自国家能源局2025年1月23日新闻发布会，原文表述“第一批基地50个项目、装机9736万千瓦，截至2024年底建成9199万千瓦、投产9079万千瓦”。图表中“大基地年度新增”为各批次合计新增投产规模的估算值。</div>
+            <a class="src" href="https://solar.in-en.com/html/solar-2460359.shtml" target="_blank">来源：国际太阳能光伏网-十五五605GW空间</a>
+            <a class="src" href="https://pdf.dfcfw.com/pdf/H3_AP202503091644194680_1.pdf" target="_blank">来源：东方财富研报-沙戈荒基地</a>
+
+            <h4>1.1.2 西南水风光一体化国家级基地</h4>
+            <div class="data-grid">
+                <div class="data-item">
+                    <div class="value">2255万kW</div>
+                    <div class="label">雅砻江基地2025年底投产</div>
+                    <div class="sub">含新能源330万kW</div>
+                </div>
+                <div class="data-item">
+                    <div class="value">~1200万kW</div>
+                    <div class="label">雅砻江基地在建规模</div>
+                </div>
+                <div class="data-item">
+                    <div class="value">7800万kW</div>
+                    <div class="label">雅砻江基地规划总装机</div>
+                    <div class="sub">2035年全部建成</div>
+                </div>
+                <div class="data-item">
+                    <div class="value">~4000万kW</div>
+                    <div class="label">十五五末目标规模</div>
+                    <div class="sub">从2300万增至4000万</div>
+                </div>
+            </div>
+            <table>
+                <thead><tr><th>指标</th><th>2024年</th><th>2025年</th><th>2029年(E)</th><th>数据来源</th></tr></thead>
+                <tbody>
+                    <tr><td>雅砻江投产装机</td><td>~2100万kW</td><td>2255万kW</td><td>~3800万kW</td><td><a class="src" href="https://www.sdic.com.cn/cn/rmtzx/xwzx/gtyw/webinfo/2026/04/1776116540325846.htm" target="_blank">国投集团</a></td></tr>
+                    <tr><td>其中新能源装机</td><td>~200万kW</td><td>330万kW</td><td>~800万kW</td><td><a class="src" href="https://baike.baidu.com/item/%E9%9B%85%E7%A0%BB%E6%B1%9F%E6%B5%81%E5%9F%9F%E6%B0%B4%E9%A3%8E%E5%85%89%E4%B8%80%E4%BD%93%E5%8C%96%E5%9F%BA%E5%9C%B0/64158300" target="_blank">百度百科</a></td></tr>
+                    <tr><td>年发电量</td><td>~900亿kWh</td><td>~1000亿kWh</td><td>~1500亿kWh</td><td><a class="src" href="https://www.nea.gov.cn/2024-03/22/c_1310768587.htm" target="_blank">国家能源局</a></td></tr>
+                </tbody>
+            </table>
+            <a class="src" href="https://finance.sina.com.cn/roll/2025-05-21/doc-inexiptx5913089.shtml" target="_blank">来源：新浪财经-雅砻江基地建设</a>
+        </div>
+
+        <!-- 1.2 常规集中式 -->
+        <div class="card">
+            <h3>1.2 常规集中式风电</h3>
+            <div class="hl-box">
+                <strong>定义：</strong>省级大型连片基地（≥50万千瓦）+ 常规集中式风电（<5万千瓦），通过年度常态化市场化指标池逐年分配。
+            </div>
+            <table>
+                <thead><tr><th>指标</th><th>2024年</th><th>2025年</th><th>2026年(E)</th><th>数据来源</th></tr></thead>
+                <tbody>
+                    <tr><td>陆上风电新增装机</td><td>7579万kW</td><td>1.1亿kW</td><td>~1.1亿kW</td><td><a class="src" href="https://www.nea.gov.cn/20260212/742b8c6a078347b0b39de676c05c5d58/c.html" target="_blank">国家能源局</a></td></tr>
+                    <tr><td>扣除大基地后常规新增(估算)</td><td>~4000万kW</td><td>~5500万kW</td><td>~5500万kW</td><td>估算（总陆上新增-大基地年新增）</td></tr>
+                    <tr><td>常规集中式占比(陆上)</td><td>~60%</td><td>~50%</td><td>~50%</td><td><a class="src" href="https://www.cnenergynews.cn/article/4QGJgCAGxms" target="_blank">中国能源新闻网</a></td></tr>
+                    <tr><td>纳入机制电价规模</td><td>—</td><td>—</td><td>~7009万kW</td><td><a class="src" href="https://www.nationalee.com/newsinfo/8941929.html" target="_blank">国家能源局2026预测</a></td></tr>
+                    <tr><td>陆上风机均价(元/kW)</td><td>~1514</td><td>1618</td><td>~1650</td><td><a class="src" href="https://paper.people.com.cn/zgnyb/pc/content/202604/06/content_30149909.html" target="_blank">中国能源报</a></td></tr>
+                </tbody>
+            </table>
+            <a class="src" href="https://www.goldwind.com/data/uploads/bdc_content2026/41228643731285109760.pdf" target="_blank">来源：金风科技2025年报</a>
+        </div>
+
+        <!-- 1.3 分散式 -->
+        <div class="card">
+            <h3>1.3 分散式风电</h3>
+            <div class="hl-box">
+                <strong>定义：</strong>单项目 < 5万千瓦，就近消纳，含"千乡万村驭风行动"项目。
+            </div>
+            <table>
+                <thead><tr><th>指标</th><th>2024年</th><th>2025年</th><th>2026年(E)</th><th>数据来源</th></tr></thead>
+                <tbody>
+                    <tr><td>分散式年新增装机</td><td>~800万kW</td><td>~1000万kW</td><td>~1500万kW</td><td><a class="src" href="https://pdf.dfcfw.com/pdf/H3_AP202507141708786059_1.pdf" target="_blank">东方财富研报</a></td></tr>
+                    <tr><td>千乡万村规划项目容量</td><td>各省启动试点</td><td>超历史累计装机</td><td>加速放量</td><td><a class="src" href="https://pdf.dfcfw.com/pdf/H3_AP202507141708786059_1.pdf" target="_blank">东方财富研报</a></td></tr>
+                    <tr><td>每村试点规模上限</td><td>≤20MW/村</td><td>≤20MW/村</td><td>≤20MW/村</td><td><a class="src" href="https://www.ndrc.gov.cn/xxgk/zcfb/tz/202404/t20240401_1365396.html" target="_blank">国家发改委</a></td></tr>
+                    <tr><td>年均潜在新增(充分开发)</td><td>—</td><td>2000万kW/年</td><td>2000万kW/年</td><td><a class="src" href="https://www.nea.gov.cn/2024-04/01/c_1310769844.htm" target="_blank">国家能源局</a></td></tr>
+                    <tr><td>市场CR3</td><td>~46%</td><td>~45%</td><td>~43%</td><td><a class="src" href="https://bg.qianzhan.com/report/detail/300/241230-5a391d91.html" target="_blank">前瞻产业研究院</a></td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- 1.4 绿电直连 -->
+        <div class="card">
+            <h3>1.4 绿电直连项目</h3>
+            <table>
+                <thead><tr><th>指标</th><th>2024年</th><th>2025年</th><th>2026年(截至4月)</th><th>数据来源</th></tr></thead>
+                <tbody>
+                    <tr><td>完成审批项目数</td><td>政策尚未出台</td><td>H1新增56个，全年~80个</td><td>99个(截至4月)</td><td><a class="src" href="https://www.nea.gov.cn/20260427/09f3dbc015664a74b9cbe2444c4891bf/c.html" target="_blank">国家能源局2026Q2发布会</a> / <a class="src" href="https://www.cpnn.com.cn/news/zngc/202511/t20251110_1845183.html" target="_blank">电力新闻网</a></td></tr>
+                    <tr><td>新能源总装机规模</td><td>—</td><td>—</td><td>3405万kW</td><td><a class="src" href="https://www.nea.gov.cn/20260427/09f3dbc015664a74b9cbe2444c4891bf/c.html" target="_blank">国家能源局</a></td></tr>
+                    <tr><td>出台配套政策省份</td><td>0</td><td>~15个</td><td>24个</td><td><a class="src" href="https://www.nea.gov.cn/20260427/09f3dbc015664a74b9cbe2444c4891bf/c.html" target="_blank">国家能源局</a></td></tr>
+                    <tr><td>2025上半年新增项目</td><td>—</td><td>56个</td><td>—</td><td><a class="src" href="https://www.cpnn.com.cn/news/zngc/202511/t20251110_1845183.html" target="_blank">中国电力新闻网</a></td></tr>
+                    <tr><td>百万千瓦级项目占比</td><td>—</td><td>12.5%(7个)</td><td>—</td><td><a class="src" href="https://www.cpnn.com.cn/news/zngc/202511/t20251110_1845183.html" target="_blank">中国电力新闻网</a></td></tr>
+                </tbody>
+            </table>
+            <div class="hl-box ok">
+                <strong>政策里程碑：</strong><br>
+                · 2025年5月：《关于有序推动绿电直连发展有关事项的通知》（首次国家层面定义）<br>
+                · 2026年2月：84个项目完成审批，装机3259万kW<br>
+                · 2026年5月：《多用户绿电直连发展有关事项的通知》（扩展至多用户）
+            </div>
+            <a class="src" href="https://www.ndrc.gov.cn/xxgk/zcfb/tz/202505/t20250530_1398138.html" target="_blank">来源：国家发改委-绿电直连通知</a>
+            <a class="src" href="https://paper.people.com.cn/rmrbhwb/pc/content/202602/28/content_30142656.html" target="_blank">来源：人民日报-84个项目3259万kW</a>
+        </div>
+
+        <!-- 1.5 存量改造/以大代小 -->
+        <div class="card">
+            <h3>1.5 存量改造（以大代小）</h3>
+            <table>
+                <thead><tr><th>指标</th><th>2024年</th><th>2025年</th><th>2026年(E)</th><th>数据来源</th></tr></thead>
+                <tbody>
+                    <tr><td>运行超15年装机规模</td><td>~2000万kW</td><td>~3000万kW</td><td>~4000万kW</td><td><a class="src" href="https://www.lexology.com/library/detail.aspx?g=dad6f75a-b850-461c-8034-d540b20b2779" target="_blank">Lexology</a></td></tr>
+                    <tr><td>1.5MW以下存量机组</td><td>~12GW</td><td>~12GW</td><td>逐步替换中</td><td><a class="src" href="https://pdf.dfcfw.com/pdf/H3_AP202405151633162500_1.pdf" target="_blank">东方财富研报</a></td></tr>
+                    <tr><td>年退役/改造规模</td><td>~100万kW</td><td>~125万kW</td><td>~300万kW</td><td><a class="src" href="https://mwind.in-en.com/html/wind-2457070.shtml" target="_blank">国际风力发电网</a></td></tr>
+                    <tr><td>2025-2030退役高峰总量</td><td colspan="3">4400万kW</td><td><a class="src" href="http://paper.people.com.cn/zgnyb/html/2021-09/27/content_25881681.htm" target="_blank">人民日报-中国能源报</a></td></tr>
+                    <tr><td>2030年前市场总规模</td><td colspan="3">200GW</td><td><a class="src" href="https://mwind.in-en.com/html/wind-2457070.shtml" target="_blank">国际风力发电网</a></td></tr>
+                </tbody>
+            </table>
+            <div class="note">备注：2025年为"以大代小"元年，首个试点为宁夏；预计2027-2030年进入规模化替换阶段。</div>
+        </div>
+
+        <div class="card">
+            <h3>项目分类维度：各类型装机规模对比（2024-2026）</h3>
+            <div class="chart-box chart-box-lg" id="chart-dim1-compare"></div>
+        </div>
+    </div>
+
+    <!-- ========== 维度2：区域分类 ========== -->
+    <div id="dim2" class="section">
+        <div class="section-header"><div class="num">2</div><h2>区域分类维度分析</h2></div>
+
+        <div class="card">
+            <h3>2.1 陆上区域分布</h3>
+            <div class="hl-box">
+                <strong>核心数据：</strong>2025年"三北"地区占全国新增风电装机的<strong>79%</strong>（2024年为75%），陆上风电新增1.1亿千瓦。
+                <a class="src" href="https://www.nea.gov.cn/20260212/742b8c6a078347b0b39de676c05c5d58/c.html" target="_blank">来源：国家能源局</a>
+            </div>
+            <table>
+                <thead><tr><th>区域</th><th>代表省份</th><th>2024年累计(TOP省)</th><th>2025年新增(TOP省/区域)</th><th>2025年新增占比</th><th>特征</th><th>数据来源</th></tr></thead>
+                <tbody>
+                    <tr><td><strong>新蒙区域</strong></td><td>内蒙古、新疆</td><td>内蒙古8599万kW<br>新疆4708万kW</td><td>内蒙古~1400万kW(E)<br>新疆~700万kW(E)<br>区域合计~4800万kW</td><td>~40%</td><td>大基地核心，沙戈荒主战场</td><td><a class="src" href="http://nm.people.com.cn/n2/2025/1113/c192247-41410108.html" target="_blank">人民网-内蒙古9741万kW</a><br><a class="src" href="https://www.xinjiang.gov.cn/xinjiang/bmdt/202505/d6d06a1791f242bd91c133fc913e8568.shtml" target="_blank">新疆政府网-4952万kW</a></td></tr>
+                    <tr><td><strong>甘宁青区域</strong></td><td>甘肃、宁夏、青海</td><td>甘肃3215万kW<br>宁夏1600万kW(E)</td><td>甘肃~600万kW(E)<br>区域合计~1400万kW</td><td>~12%</td><td>大基地+常规，以大代小先行</td><td><a class="src" href="http://gansu.gov.cn/gsszf/gsyw/202506/174153921.shtml" target="_blank">甘肃政府网-3494万kW</a></td></tr>
+                    <tr><td><strong>东北区域</strong></td><td>辽宁、吉林、黑龙江</td><td>合计~3000万kW</td><td>区域合计~1200万kW(E)</td><td>~10%</td><td>老风场密集，以大代小潜力大</td><td><a class="src" href="https://www.nea.gov.cn/20260212/742b8c6a078347b0b39de676c05c5d58/c.html" target="_blank">国家能源局-三北79%</a></td></tr>
+                    <tr><td><strong>中东南区域</strong></td><td>河北、山东、河南、江苏、湖北等</td><td>河北3809万kW<br>山东2669万kW<br>江苏2321万kW</td><td>河北~500万kW(E)<br>山东~400万kW(E)<br>江苏~10万kW<br>区域合计~2400万kW</td><td>~20%</td><td>常规+分散式，负荷中心</td><td><a class="src" href="https://www.cpnn.com.cn/news/dfny/202512/t20251229_1856840.html" target="_blank">中电联-河北可再生能源</a><br><a class="src" href="https://www.zgjssw.gov.cn/yaowen/202506/t20250602_8491321.shtml" target="_blank">江苏省委新闻网-2330万kW</a></td></tr>
+                    <tr><td><strong>西南区域</strong></td><td>四川、云南、贵州、广西</td><td>广西~1200万kW<br>四川~800万kW</td><td>区域合计~600万kW(E)</td><td>~5%</td><td>水风光一体化基地</td><td><a class="src" href="https://www.nea.gov.cn/20260212/742b8c6a078347b0b39de676c05c5d58/c.html" target="_blank">国家能源局</a></td></tr>
+                    <tr><td><strong>高海拔区域</strong></td><td>西藏、青海高海拔地区</td><td>基数较小</td><td><100万kW(E)</td><td><1%</td><td>特殊机型需求，高海拔定制</td><td>行业统计</td></tr>
+                </tbody>
+            </table>
+            <div class="note">
+                <strong>数据说明：</strong>2025年全国风电新增并网1.2亿千瓦（NEA），其中陆上1.1亿千瓦、海上659万千瓦，"三北"地区占全国新增装机的79%。表中TOP省/区域新增为基于官方累计数据和区域占比的估算值，标记(E)表示估算；各省2025年新增装机国家能源局未单独公布，本表采用官方累计数据差值与行业分布推算。
+            </div>
+        </div>
+
+        <div class="card">
+            <h3>2.2 海上区域分布</h3>
+            <table>
+                <thead><tr><th>区域</th><th>代表省份</th><th>2024年累计</th><th>2025年新增</th><th>特征</th><th>数据来源</th></tr></thead>
+                <tbody>
+                    <tr><td><strong>近海区域</strong></td><td>广东、江苏、山东、浙江、福建</td><td>海上累计4041万kW(全国)</td><td>659万kW(全国)</td><td>成熟开发区域，省管海域</td><td><a class="src" href="https://www.nea.gov.cn/20260212/742b8c6a078347b0b39de676c05c5d58/c.html" target="_blank">国家能源局</a></td></tr>
+                    <tr><td><strong>抗台风区域</strong></td><td>广东、福建、海南</td><td>广东海风累计~1200万kW</td><td>广东~100万kW+(连续4年新增超100万kW)</td><td>抗台风机型需求强，全国海风装机第一</td><td><a class="src" href="https://www.stdaily.com/web/gdxw/2025-07/16/content_370966.html" target="_blank">科技日报-广东海风1250万kW</a></td></tr>
+                    <tr><td><strong>深远海区域</strong></td><td>各省国管海域</td><td>示范阶段</td><td>示范项目加速，2025年新增~50万kW(E)</td><td>十五五目标年均新增≥1500万kW</td><td><a class="src" href="http://www.news.cn/fortune/20251021/34116cc434624c57b36f5dc6635d06e0/c.html" target="_blank">新华网-十五五目标</a></td></tr>
+                </tbody>
+            </table>
+            <div class="data-grid">
+                <div class="data-item">
+                    <div class="value">60GW</div>
+                    <div class="label">已竞配待建设海风项目</div>
+                    <div class="sub">省管海域</div>
+                </div>
+                <div class="data-item">
+                    <div class="value">107GW</div>
+                    <div class="label">沿海11省并网/在建/签约/竞配/核准</div>
+                    <div class="sub">2022年以来累计</div>
+                </div>
+                <div class="data-item">
+                    <div class="value">1亿kW</div>
+                    <div class="label">十五五海上风电累计目标</div>
+                    <div class="sub">年均新增≥1500万kW</div>
+                </div>
+            </div>
+            <a class="src" href="https://www.ditan.com/news/hot/6516.html" target="_blank">来源：低碳经济网-107GW海风项目</a>
+            <a class="src" href="https://www.gdshe.org/article/27379.html" target="_blank">来源：十五五海风规划</a>
+        </div>
+
+        <div class="card">
+            <h3>区域装机分布图（2024年底累计）</h3>
+            <div class="chart-box chart-box-lg" id="chart-dim2-map"></div>
+        </div>
+
+        <div class="card">
+            <h3>区域新增装机趋势（三北 vs 中东南）</h3>
+            <div class="chart-box" id="chart-dim2-trend"></div>
+        </div>
+    </div>
+
+    <!-- ========== 维度3：客户分类 ========== -->
+    <div id="dim3" class="section">
+        <div class="section-header"><div class="num">3</div><h2>客户分类维度分析</h2></div>
+
+        <div class="card">
+            <h3>3.1 发电企业（纯风电投资运营）</h3>
+            <div class="hl-box">
+                <strong>定义：</strong>纯做风电投资运营，自带自用负荷极少。以央企"五大六小"为主体，占据市场绝对主导。
+            </div>
+            <table>
+                <thead><tr><th>指标</th><th>2024年</th><th>2025年</th><th>2026年(H1)</th><th>数据来源</th></tr></thead>
+                <tbody>
+                    <tr><td>央企开标占比</td><td>~80%</td><td>81.08%(1-4月)</td><td>89.1%</td><td><a class="src" href="https://wind.in-en.com/html/wind-2459462.shtml" target="_blank">风电头条</a> / <a class="src" href="https://finance.sina.com.cn/roll/2026-07-08/doc-inihaxzw8068411.shtml" target="_blank">新浪财经</a></td></tr>
+                    <tr><td>央企开标容量</td><td>—</td><td>~115GW(全年)</td><td>79.59GW</td><td><a class="src" href="https://mwind.in-en.com/html/wind-2464585.shtml" target="_blank">风电头条-2025全年</a></td></tr>
+                    <tr><td>国企(地方)开标占比</td><td>~20%</td><td>18.92%(1-4月)</td><td>10.9%</td><td><a class="src" href="https://wind.in-en.com/html/wind-2459462.shtml" target="_blank">风电头条</a></td></tr>
+                    <tr><td>央国企开标总容量</td><td>~100GW</td><td>143.82GW</td><td>89.31GW</td><td><a class="src" href="https://mwind.in-en.com/html/wind-2464585.shtml" target="_blank">风电头条</a></td></tr>
+                </tbody>
+            </table>
+            <h4>五大发电集团风电布局</h4>
+            <table>
+                <thead><tr><th>集团</th><th>总装机(截至2025)</th><th>风电布局特征</th><th>数据来源</th></tr></thead>
+                <tbody>
+                    <tr><td>国家能源集团</td><td>~4亿kW(全电源)</td><td>龙源电力为全球最大风电运营商，风电装机>5000万kW</td><td><a class="src" href="https://finance.sina.com.cn/stock/relnews/cn/2026-01-22/doc-inhietyu2671380.shtml" target="_blank">新浪财经</a></td></tr>
+                    <tr><td>华能集团</td><td>~3亿kW(全电源)</td><td>华能国际风电装机>4000万kW，海陆并举</td><td><a class="src" href="https://finance.sina.com.cn/stock/relnews/cn/2026-01-22/doc-inhietyu2671380.shtml" target="_blank">新浪财经</a></td></tr>
+                    <tr><td>大唐集团</td><td>—</td><td>积极布局沙戈荒，蒙电入苏百亿投资</td><td><a class="src" href="https://www.tmtpost.com/7975787.html" target="_blank">钛媒体</a></td></tr>
+                    <tr><td>华电集团</td><td>2025新增4307万kW</td><td>华电新能源上市，增速最快</td><td><a class="src" href="https://finance.sina.com.cn/stock/relnews/cn/2026-01-22/doc-inhietyu2671380.shtml" target="_blank">新浪财经</a></td></tr>
+                    <tr><td>国家电投</td><td>—</td><td>清洁能源占比领先，三家上市公司均有风电</td><td><a class="src" href="https://finance.sina.com.cn/stock/relnews/cn/2025-05-26/doc-inexxcsz2353590.shtml" target="_blank">新浪财经</a></td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="card">
+            <h3>3.2 负荷企业（自带负荷，自发自用）</h3>
+            <div class="hl-box">
+                <strong>定义：</strong>自身拥有稳定用电负荷的企业（钢铁、电解铝、化工、数据中心等），以自发自用为主，通过绿电直连或源网荷储模式消纳。
+            </div>
+            <table>
+                <thead><tr><th>指标</th><th>2024年</th><th>2025年</th><th>2026年</th><th>数据来源</th></tr></thead>
+                <tbody>
+                    <tr><td>绿电直连中负荷项目占比</td><td>—</td><td>多数项目含负荷配套</td><td>多用户直连扩展中</td><td><a class="src" href="https://www.cpnn.com.cn/news/zngc/202511/t20251110_1845183.html" target="_blank">中国电力新闻网</a></td></tr>
+                    <tr><td>典型场景：数据中心绿电直连</td><td>—</td><td>乌兰察布首个数据中心绿电直连</td><td>多地推广</td><td><a class="src" href="https://www.ideacarbon.org/news_free/67250/?pc=pc" target="_blank">碳道app</a></td></tr>
+                    <tr><td>典型场景：电解铝+风电</td><td>—</td><td>增量配电网示范项目</td><td>规模化</td><td><a class="src" href="http://www.xinhuanet.com/liangzi/20260413/4df92d13d0ec41f293bc05b599bf06d9/c.html" target="_blank">新华网</a></td></tr>
+                    <tr><td>内蒙古"绿电+消纳"模式</td><td>试点启动</td><td>四种模式推广</td><td>年增500万kW+</td><td><a class="src" href="http://static.cninfo.com.cn/finalpage/2026-07-07/1225411907.PDF" target="_blank">晨丰科技公告</a></td></tr>
+                </tbody>
+            </table>
+            <h4>典型负荷企业类型</h4>
+            <table>
+                <thead><tr><th>行业</th><th>典型代表</th><th>用电特征</th><th>风电需求</th></tr></thead>
+                <tbody>
+                    <tr><td>电解铝</td><td>中国铝业、魏桥集团</td><td>24h稳定高负荷</td><td>风火打捆/增量配电网</td></tr>
+                    <tr><td>数据中心</td><td>中国移动、阿里巴巴</td><td>稳定负荷，碳排放敏感</td><td>绿电直连专线</td></tr>
+                    <tr><td>钢铁冶金</td><td>宝武钢铁、河钢</td><td>大工业负荷</td><td>园区级源网荷储</td></tr>
+                    <tr><td>化工</td><td>万华化学、恒力石化</td><td>连续生产负荷</td><td>自备绿电替代</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="card">
+            <h3>3.3 传统能源（非发电）企业</h3>
+            <div class="hl-box">
+                <strong>定义：</strong>油气、煤炭开采储运企业，拥有自有厂区负荷，开展矿区风电/光伏自用。
+            </div>
+            <ul>
+                <li>代表企业：中石油、中石化、国家能源集团（煤炭板块）、陕煤集团等</li>
+                <li>场景：矿区风电自供（降低矿区用电成本），油气田风光互补</li>
+                <li>中石油2025年风电开标容量排名靠前，积极转型新能源</li>
+                <li>规模相对较小，但增长稳定，对可靠性要求高</li>
+            </ul>
+            <a class="src" href="https://mwind.in-en.com/html/wind-2464585.shtml" target="_blank">来源：风电头条-中石油开标数据</a>
+        </div>
+
+        <div class="card">
+            <h3>3.4 风场开发转售企业</h3>
+            <div class="hl-box">
+                <strong>定义：</strong>以风电项目开发建成或出售为主，不自持运营。典型代表为中国电建、中国能建等EPC企业的"投建营转售"模式。
+            </div>
+            <table>
+                <thead><tr><th>指标</th><th>2025年数据</th><th>数据来源</th></tr></thead>
+                <tbody>
+                    <tr><td>中国能建新能源合同额</td><td>5925.78亿元（同比+6.7%）</td><td><a class="src" href="http://static.cninfo.com.cn/finalpage/2026-03-28/1225047990.PDF" target="_blank">中国能建2025年报</a></td></tr>
+                    <tr><td>中国能建风机集采金额</td><td>1077.76亿元</td><td><a class="src" href="https://xueqiu.com/8250855306/334513440" target="_blank">雪球</a></td></tr>
+                    <tr><td>中国电建风电开发模式</td><td>"投建营"转向多能互补集成</td><td><a class="src" href="http://money.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?stockid=601669&id=12175206" target="_blank">中国电建年报</a></td></tr>
+                    <tr><td>转售比例(估算)</td><td>~30-40%项目开发后转让</td><td>行业估算</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="card">
+            <h3>客户分类开标占比（2025年）</h3>
+            <div class="note" style="margin-bottom:10px;">注：数据来源仅提供央企(81.08%)vs国企(18.92%)的拆分，客户细分占比（负荷企业4%、传统能源2%、转售1%）为行业估算值。月度趋势中仅1-4月(81%)和12月(94%)为确认数据，其余月份为插值估算。</div>
+            <div class="two-col">
+                <div class="chart-box" id="chart-dim3-pie"></div>
+                <div class="chart-box" id="chart-dim3-bar"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========== 交叉机会矩阵 ========== -->
+    <div id="cross" class="section">
+        <div class="section-header"><div class="num">4</div><h2>三维交叉组合——机会点矩阵</h2></div>
+
+        <div class="card">
+            <h3>机会点矩阵总览（项目 × 区域 × 客户）</h3>
+            <table>
+                <thead><tr><th>项目\区域\客户</th><th>新蒙+甘宁青<br>(大基地区域)</th><th>东北<br>(存量密集)</th><th>中东南<br>(负荷中心)</th><th>西南<br>(水风光)</th><th>海上</th></tr></thead>
+                <tbody>
+                    <tr>
+                        <td><strong>大基地</strong></td>
+                        <td><span class="stars">★★★★★</span><br>央企发电企业主导</td>
+                        <td>—</td>
+                        <td>—</td>
+                        <td><span class="stars">★★★★</span><br>水风光一体化</td>
+                        <td>—</td>
+                    </tr>
+                    <tr>
+                        <td><strong>常规集中式</strong></td>
+                        <td><span class="stars">★★★★</span><br>央企/国企</td>
+                        <td><span class="stars">★★★</span><br>国企/转售</td>
+                        <td><span class="stars">★★★★</span><br>国企/发电企业</td>
+                        <td><span class="stars">★★★</span><br>发电企业</td>
+                        <td>—</td>
+                    </tr>
+                    <tr>
+                        <td><strong>分散式</strong></td>
+                        <td><span class="stars">★★</span></td>
+                        <td><span class="stars">★★</span></td>
+                        <td><span class="stars">★★★★</span><br>地方国企/民企</td>
+                        <td><span class="stars">★★★</span></td>
+                        <td>—</td>
+                    </tr>
+                    <tr>
+                        <td><strong>绿电直连</strong></td>
+                        <td><span class="stars">★★★★</span><br>负荷企业(数据中心)</td>
+                        <td><span class="stars">★★</span></td>
+                        <td><span class="stars">★★★★★</span><br>负荷企业(工业)</td>
+                        <td><span class="stars">★★</span></td>
+                        <td>—</td>
+                    </tr>
+                    <tr>
+                        <td><strong>存量改造</strong></td>
+                        <td><span class="stars">★★★★</span><br>央企/国企</td>
+                        <td><span class="stars">★★★★★</span><br>央企/地方国企</td>
+                        <td><span class="stars">★★★</span><br>早期风场改造</td>
+                        <td><span class="stars">★★</span></td>
+                        <td>—</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="opp-card top">
+            <h3>机会点A：新蒙大基地 + 发电企业（央企）</h3>
+            <div class="stars">★★★★★</div>
+            <p><strong>规模：</strong>十五五期间605GW空间 | <strong>客户：</strong>五大六小 | <strong>模式：</strong>集中式大基地+特高压外送</p>
+            <p><strong>三一策略：</strong>6-10MW大机型竞争，与央企建立年度战略合作框架协议，参与沙戈荒基地专项投标。</p>
+        </div>
+
+        <div class="opp-card top">
+            <h3>机会点B：中东南 + 负荷企业 + 绿电直连</h3>
+            <div class="stars">★★★★★</div>
+            <p><strong>规模：</strong>99个项目3405万kW已审批，24省配套政策 | <strong>客户：</strong>钢铁/电解铝/数据中心/化工</p>
+            <p><strong>三一策略：</strong>建立工业大客户团队，提供"风机+储能+直连线路"整体方案，5-8MW机型适配工业负荷曲线。</p>
+        </div>
+
+        <div class="opp-card">
+            <h3>机会点C：东北 + 存量改造（以大代小）</h3>
+            <div class="stars">★★★★☆</div>
+            <p><strong>规模：</strong>2030年前200GW市场，东北老风场密集 | <strong>客户：</strong>央企/地方国企存量业主</p>
+            <p><strong>三一策略：</strong>推出"以大代小"专项方案（拆旧+安装+基础改造），大兆瓦1替3-4优势，绑定存量业主长期合作。</p>
+        </div>
+
+        <div class="opp-card">
+            <h3>机会点D：中东南 + 分散式 + 地方国企</h3>
+            <div class="stars">★★★★☆</div>
+            <p><strong>规模：</strong>年均20GW千乡万村 | <strong>客户：</strong>省属能源集团、县级合作方</p>
+            <p><strong>三一策略：</strong>4-6MW机型标准化，建立渠道分销网络，快速交付+本地化运维。</p>
+        </div>
+
+        <div class="opp-card">
+            <h3>机会点E：新蒙 + 负荷企业 + 绿电直连（数据中心/电解铝）</h3>
+            <div class="stars">★★★★☆</div>
+            <p><strong>规模：</strong>内蒙古年增500万kW+ | <strong>客户：</strong>大数据企业、电解铝企业</p>
+            <p><strong>三一策略：</strong>联合开发绿电直连专线项目，定制化"风储一体化"方案匹配24h稳定负荷。</p>
+        </div>
+
+        <div class="opp-card">
+            <h3>机会点F：西南 + 大基地 + 发电企业（水风光一体化）</h3>
+            <div class="stars">★★★☆☆</div>
+            <p><strong>规模：</strong>雅砻江从2300万kW增至4000万kW | <strong>客户：</strong>国投/华电等</p>
+            <p><strong>三一策略：</strong>中低风速机型适配水风光互补场景，参与流域级基地开发。</p>
+        </div>
+
+        <div class="card">
+            <h3>机会点优先级气泡图</h3>
+            <div class="chart-box chart-box-lg" id="chart-cross-bubble"></div>
+        </div>
+    </div>
+
+    <!-- ========== 政策梳理模块 ========== -->
+    <div id="policy" class="section">
+        <div class="section-header"><div class="num">5</div><h2>三维政策发展梳理</h2></div>
+
+        <!-- 维度一：项目分类政策 -->
+        <div class="card">
+            <h3>维度一：项目分类政策演进</h3>
+            
+            <h4>① 大基地政策</h4>
+            <div class="timeline">
+                <div class="tl-item">
+                    <div class="time">2021年11月</div>
+                    <strong>第一批沙戈荒大基地启动</strong>
+                    <p>国家发改委、国家能源局印发《第一批以沙漠、戈壁、荒漠地区为重点的大型风电光伏基地建设项目清单的通知》，在内蒙、青海、甘肃、宁夏、新疆等地布局50个项目，总规模9736万千瓦。</p>
+                    <a class="src" href="https://xbj.nea.gov.cn/dtyw/hyxx/202501/t20250126_275980.html" target="_blank">国家能源局西北监管局-第一批大基地</a>
+                </div>
+                <div class="tl-item">
+                    <div class="time">2023年</div>
+                    <strong>第二、三批大基地规划</strong>
+                    <p>第二批大基地规划装机规模4.55亿千瓦，第三批大基地规划装机规模约2亿千瓦，合计超6.5亿千瓦。</p>
+                    <a class="src" href="https://msolar.in-en.com/html/solar-2457313.shtml" target="_blank">国际能源网-五大六小大基地解析</a>
+                </div>
+                <div class="tl-item">
+                    <div class="time">2025年2月27日</div>
+                    <strong>《2025年能源工作指导意见》</strong>
+                    <p>国家能源局发布，明确"积极推进第二批、第三批'沙戈荒'大型风电光伏基地和主要流域水风光一体化基地建设"。</p>
+                    <a class="src" href="https://www.nea.gov.cn/20250227/105a07a9be2c4727b7fe12c11c7b84cf/c.html" target="_blank">国家能源局-政策解读</a>
+                </div>
+                <div class="tl-item">
+                    <div class="time">2025年3月8日</div>
+                    <strong>两会官方表态</strong>
+                    <p>国家能源局新能源和可再生能源司司长李创军透露："第一批'沙戈荒'新能源基地基本建成投产，第二、三批基地力争2025年底前建成投产5000万千瓦左右。"</p>
+                    <a class="src" href="https://www.news.cn/politics/20250308/f53e6b0c752f46729087a57b7d132a1e/c.html" target="_blank">新华网-两会观察</a>
+                </div>
+                <div class="tl-item">
+                    <div class="time">2026年3月</div>
+                    <strong>《十五五规划纲要》</strong>
+                    <p>明确"统筹就地消纳和外送，建设'三北'风电光伏、西南水风光一体化、沿海核电、海上风电等清洁能源基地"。清洁能源基地从9个增至10个。</p>
+                    <a class="src" href="https://www.ndrc.gov.cn/fggz/fzzlgh/gjfzgh/202603/U020260317369114704096.pdf" target="_blank">国家发改委-十五五规划纲要全文</a>
+                </div>
+            </div>
+
+            <h4>② 分散式风电政策</h4>
+            <div class="timeline">
+                <div class="tl-item">
+                    <div class="time">2024年4月1日</div>
+                    <strong>《关于组织开展"千乡万村驭风行动"的通知》</strong>
+                    <p>发改能源〔2024〕378号。国家发改委、国家能源局、农业农村部联合印发，明确"十四五"期间在具备条件的县域农村地区，以村为单位，原则上每个行政村不超过20兆瓦，探索"村企合作"模式。</p>
+                    <a class="src" href="https://www.ndrc.gov.cn/xxgk/zcfb/tz/202404/t20240401_1365396.html" target="_blank">国家发改委-千乡万村驭风行动</a>
+                </div>
+                <div class="tl-item">
+                    <div class="time">2024年9月</div>
+                    <strong>《省级"千乡万村驭风行动"总体方案编制大纲》</strong>
+                    <p>国家能源局发文规范有序推进，要求各省明确开发利用规模、重点发展区域、生态环保要求和相关保障措施。</p>
+                    <a class="src" href="https://www.nea.gov.cn/2024-09/20/c_1212398769.htm" target="_blank">国家能源局-规范化推进</a>
+                </div>
+                <div class="tl-item">
+                    <div class="time">2025年11月</div>
+                    <strong>《关于促进新能源集成融合发展的指导意见》</strong>
+                    <p>国家能源局发布，提出"深化推进农村能源革命，依托新模式新业态整合农村分散式风电、分布式光伏等资源"。</p>
+                    <a class="src" href="https://policy.mofcom.gov.cn/claw/clawContent.shtml?id=104092" target="_blank">商务部全球法规网-指导意见全文</a>
+                </div>
+            </div>
+
+            <h4>③ 绿电直连政策</h4>
+            <div class="timeline">
+                <div class="tl-item">
+                    <div class="time">2025年5月30日</div>
+                    <strong>《关于有序推动绿电直连发展有关事项的通知》</strong>
+                    <p>发改能源〔2025〕650号。国家发改委、国家能源局联合印发，开创新能源就近消纳利用新模式。明确绿电直连项目年自发自用电量占总可用发电量比例应不低于60%，占总用电量比例不低于30%。</p>
+                    <a class="src" href="https://www.ndrc.gov.cn/xxgk/zcfb/tz/202505/t20250530_1398138.html" target="_blank">国家发改委-绿电直连通知</a>
+                </div>
+                <div class="tl-item">
+                    <div class="time">2026年5月20日</div>
+                    <strong>《关于有序推动多用户绿电直连发展有关事项的通知》</strong>
+                    <p>在单用户绿电直连基础上，进一步拓展至多用户模式，支持新能源通过专用线路向多个用户供给绿电。</p>
+                    <a class="src" href="https://www.nea.gov.cn/20260520/9e1c4277ce324c8ab82a84da98da7980/c.html" target="_blank">国家能源局-多用户绿电直连</a>
+                </div>
+            </div>
+
+            <h4>④ 存量改造（以大代小）政策</h4>
+            <div class="timeline">
+                <div class="tl-item">
+                    <div class="time">2023年6月5日</div>
+                    <strong>《风电场改造升级和退役管理办法》</strong>
+                    <p>国能发新能规〔2023〕45号。国家能源局印发，填补风电场改造升级和退役管理政策"空白"。鼓励并网运行超过15年或单台机组容量小于1.5兆瓦的风电场开展改造升级。</p>
+                    <a class="src" href="https://zfxxgk.nea.gov.cn/2023-06/05/c_1310726993.htm" target="_blank">国家能源局-改造升级管理办法</a>
+                </div>
+                <div class="tl-item">
+                    <div class="time">2025年11月</div>
+                    <strong>《关于促进新能源集成融合发展的指导意见》</strong>
+                    <p>提出"有序推动风电、光伏发电项目改造升级，提升土地利用效率"。</p>
+                    <a class="src" href="https://policy.mofcom.gov.cn/claw/clawContent.shtml?id=104092" target="_blank">商务部全球法规网-指导意见</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- 维度二：区域分类政策 -->
+        <div class="card">
+            <h3>维度二：区域分类政策演进</h3>
+            
+            <h4>① 陆上区域政策</h4>
+            <table>
+                <thead><tr><th>区域</th><th>政策重点</th><th>核心文件</th><th>来源</th></tr></thead>
+                <tbody>
+                    <tr>
+                        <td><strong>新蒙区域</strong></td>
+                        <td>沙戈荒大基地主战场，2026年力争新能源并网30GW</td>
+                        <td>《2026年内蒙古自治区国民经济和社会发展计划》</td>
+                        <td><a class="src" href="https://mnewenergy.in-en.com/html/newenergy-2451109.shtml" target="_blank">国际能源网</a></td>
+                    </tr>
+                    <tr>
+                        <td><strong>甘宁青区域</strong></td>
+                        <td>腾格里沙漠基地、甘肃至浙江特高压外送通道</td>
+                        <td>十五五规划纲要、2025能源工作指导意见</td>
+                        <td><a class="src" href="https://www.ndrc.gov.cn/fggz/fzzlgh/gjfzgh/202603/U020260317369114704096.pdf" target="_blank">十五五规划</a></td>
+                    </tr>
+                    <tr>
+                        <td><strong>东北区域</strong></td>
+                        <td>老旧风电场改造升级重点区，"绿电+消纳"模式探索</td>
+                        <td>《风电场改造升级和退役管理办法》</td>
+                        <td><a class="src" href="https://zfxxgk.nea.gov.cn/2023-06/05/c_1310726993.htm" target="_blank">国家能源局</a></td>
+                    </tr>
+                    <tr>
+                        <td><strong>中东南区域</strong></td>
+                        <td>分散式风电、绿电直连、低风速风电开发</td>
+                        <td>千乡万村驭风行动、绿电直连通知</td>
+                        <td><a class="src" href="https://www.ndrc.gov.cn/xxgk/zcfb/tz/202404/t20240401_1365396.html" target="_blank">国家发改委</a></td>
+                    </tr>
+                    <tr>
+                        <td><strong>西南区域</strong></td>
+                        <td>水风光一体化基地（雅砻江、金沙江、澜沧江等）</td>
+                        <td>十五五规划纲要（四大水风光基地）</td>
+                        <td><a class="src" href="https://www.gdshe.org/article/27063.html" target="_blank">广东水电学会</a></td>
+                    </tr>
+                    <tr>
+                        <td><strong>高海拔区域</strong></td>
+                        <td>西藏、青海等高海拔风电开发技术攻关</td>
+                        <td>新能源集成融合发展指导意见</td>
+                        <td><a class="src" href="https://policy.mofcom.gov.cn/claw/clawContent.shtml?id=104092" target="_blank">商务部全球法规网</a></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h4>② 海上风电政策</h4>
+            <div class="timeline">
+                <div class="tl-item">
+                    <div class="time">2025年1月</div>
+                    <strong>《关于进一步加强海上风电项目用海管理的通知》</strong>
+                    <p>自然资源部印发，从强化规划管控、厉行节约集约、优化用海审批、坚持生态用海4方面提出12项措施。明确新增海上风电项目应在离岸30千米以外或水深大于30米的海域布局。</p>
+                    <a class="src" href="https://www.nea.gov.cn/20250110/a2fd9e4847524810885f16ebdbea32e0/c.html" target="_blank">国家能源局-海上风电用海管理</a>
+                </div>
+                <div class="tl-item">
+                    <div class="time">2025年10月</div>
+                    <strong>国家能源局Q4发布会</strong>
+                    <p>"加大海上风电开发力度，完善顶层设计，加快研究出台深远海海上风电规划性文件和管理办法，推动海上风电规范有序建设。"</p>
+                    <a class="src" href="https://www.nea.gov.cn/20251031/7b6f39feb2d24ecb91783e282ed64f75/c.html" target="_blank">国家能源局-发布会实录</a>
+                </div>
+                <div class="tl-item">
+                    <div class="time">2026年3月</div>
+                    <strong>十五五规划纲要</strong>
+                    <p>明确建设"海上风电基地"，推进海上风电向深水远岸区域布局。与"十四五"相比，海上风电战略地位进一步提升。</p>
+                    <a class="src" href="https://www.ndrc.gov.cn/fggz/fzzlgh/gjfzgh/202603/U020260317369114704096.pdf" target="_blank">十五五规划纲要</a>
+                </div>
+            </div>
+
+            <div class="hl-box">
+                <strong>海上风电用海管理核心要点：</strong><br>
+                • 离岸距离：新增项目应在离岸30千米以外或水深大于30米<br>
+                • 立体复合利用：鼓励"风电+"模式（网箱养殖、海上光伏、制氢、储能等）<br>
+                • 审批权限：用海总面积700公顷以上须报国务院审批<br>
+                • 生态红线：严禁在生态保护红线等重要敏感区域布局
+            </div>
+        </div>
+
+        <!-- 维度三：客户分类政策 -->
+        <div class="card">
+            <h3>维度三：客户分类政策演进</h3>
+            
+            <h4>① 发电企业政策</h4>
+            <div class="timeline">
+                <div class="tl-item">
+                    <div class="time">2025年2月9日</div>
+                    <strong>《关于深化新能源上网电价市场化改革促进新能源高质量发展的通知》</strong>
+                    <p>发改价格〔2025〕136号。国家发改委、国家能源局联合印发，推动风电、太阳能发电等新能源上网电量全部进入电力市场，上网电价通过市场交易形成。建立新能源可持续发展价格结算机制，区分存量和增量项目分类施策。</p>
+                    <a class="src" href="https://www.ndrc.gov.cn/xxgk/zcfb/tz/202502/t20250209_1396066.html" target="_blank">国家发改委-电价市场化改革</a>
+                </div>
+            </div>
+            <div class="hl-box warn">
+                <strong>对发电企业的影响：</strong><br>
+                • 存量项目：纳入机制的电量、电价与现行政策妥善衔接<br>
+                • 增量项目：机制电价通过市场化竞价方式确定<br>
+                • 不得将配置储能作为新建新能源项目核准、并网、上网的前置条件
+            </div>
+
+            <h4>② 负荷企业政策</h4>
+            <div class="timeline">
+                <div class="tl-item">
+                    <div class="time">2025年5月</div>
+                    <strong>绿电直连政策</strong>
+                    <p>明确绿电直连满足企业绿色用能需求、提升新能源就近就地消纳水平。企业按申报容量获得电网供电保障，超出部分由企业自负风险与费用。</p>
+                    <a class="src" href="https://www.nea.gov.cn/20250609/04e28d8b17234b4fb4a87a2833d283b8/c.html" target="_blank">国家能源局-政策解读</a>
+                </div>
+                <div class="tl-item">
+                    <div class="time">2025年</div>
+                    <strong>《关于完善价格机制促进新能源发电就近消纳的通知》</strong>
+                    <p>发改价格〔2025〕1192号。明确并网型绿电直连项目应公平承担输配电费、系统运行费、政策性交叉补贴等。</p>
+                    <a class="src" href="https://www.ndrc.gov.cn/xxgk/zcfb/tz/202605/t20260520_1405313.html" target="_blank">国家发改委-多用户绿电直连</a>
+                </div>
+            </div>
+
+            <h4>③ 传统能源企业政策</h4>
+            <div class="timeline">
+                <div class="tl-item">
+                    <div class="time">2025年11月</div>
+                    <strong>《关于促进新能源集成融合发展的指导意见》</strong>
+                    <p>"鼓励矿区依托闲置土地、塌陷区等资源，发展光伏、风电等新能源"。为传统能源企业转型提供政策支持。</p>
+                    <a class="src" href="https://policy.mofcom.gov.cn/claw/clawContent.shtml?id=104092" target="_blank">商务部全球法规网</a>
+                </div>
+            </div>
+
+            <h4>④ 转售企业政策</h4>
+            <div class="hl-box">
+                <strong>政策环境：</strong><br>
+                • 新能源上网电价全面市场化，转售企业需通过市场交易形成电价<br>
+                • 绿电直连模式为转售企业提供新的商业模式<br>
+                • 需关注各省电力市场交易规则差异
+            </div>
+        </div>
+
+        <!-- 政策汇总矩阵 -->
+        <div class="card">
+            <h3>核心政策文件汇总</h3>
+            <table>
+                <thead><tr><th>发布时间</th><th>文件名称</th><th>文号</th><th>发布机构</th><th>影响维度</th><th>来源</th></tr></thead>
+                <tbody>
+                    <tr><td>2023.06</td><td>风电场改造升级和退役管理办法</td><td>国能发新能规〔2023〕45号</td><td>国家能源局</td><td>项目-存量改造</td><td><a class="src" href="https://zfxxgk.nea.gov.cn/2023-06/05/c_1310726993.htm" target="_blank">原文</a></td></tr>
+                    <tr><td>2024.04</td><td>关于组织开展"千乡万村驭风行动"的通知</td><td>发改能源〔2024〕378号</td><td>发改委/能源局/农业农村部</td><td>项目-分散式</td><td><a class="src" href="https://www.ndrc.gov.cn/xxgk/zcfb/tz/202404/t20240401_1365396.html" target="_blank">原文</a></td></tr>
+                    <tr><td>2025.01</td><td>关于进一步加强海上风电项目用海管理的通知</td><td>-</td><td>自然资源部</td><td>区域-海上</td><td><a class="src" href="https://www.nea.gov.cn/20250110/a2fd9e4847524810885f16ebdbea32e0/c.html" target="_blank">解读</a></td></tr>
+                    <tr><td>2025.02</td><td>关于深化新能源上网电价市场化改革的通知</td><td>发改价格〔2025〕136号</td><td>发改委/能源局</td><td>客户-发电企业</td><td><a class="src" href="https://www.ndrc.gov.cn/xxgk/zcfb/tz/202502/t20250209_1396066.html" target="_blank">原文</a></td></tr>
+                    <tr><td>2025.02</td><td>2025年能源工作指导意见</td><td>-</td><td>国家能源局</td><td>项目-大基地</td><td><a class="src" href="https://www.nea.gov.cn/20250227/105a07a9be2c4727b7fe12c11c7b84cf/c.html" target="_blank">解读</a></td></tr>
+                    <tr><td>2025.05</td><td>关于有序推动绿电直连发展有关事项的通知</td><td>发改能源〔2025〕650号</td><td>发改委/能源局</td><td>项目-绿电直连/客户-负荷</td><td><a class="src" href="https://www.ndrc.gov.cn/xxgk/zcfb/tz/202505/t20250530_1398138.html" target="_blank">原文</a></td></tr>
+                    <tr><td>2025.11</td><td>关于促进新能源集成融合发展的指导意见</td><td>-</td><td>国家能源局</td><td>全维度</td><td><a class="src" href="https://policy.mofcom.gov.cn/claw/clawContent.shtml?id=104092" target="_blank">原文</a></td></tr>
+                    <tr><td>2026.03</td><td>十五五规划纲要</td><td>-</td><td>全国人大</td><td>全维度</td><td><a class="src" href="https://www.ndrc.gov.cn/fggz/fzzlgh/gjfzgh/202603/U020260317369114704096.pdf" target="_blank">全文</a></td></tr>
+                    <tr><td>2026.05</td><td>关于有序推动多用户绿电直连发展有关事项的通知</td><td>-</td><td>发改委/能源局</td><td>项目-绿电直连</td><td><a class="src" href="https://www.nea.gov.cn/20260520/9e1c4277ce324c8ab82a84da98da7980/c.html" target="_blank">原文</a></td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- 政策趋势研判 -->
+        <div class="card">
+            <h3>政策趋势研判</h3>
+            <div class="two-col">
+                <div class="hl-box ok">
+                    <strong>利好方向：</strong>
+                    <ul>
+                        <li>大基地建设持续加码，十五五规划明确10大清洁能源基地</li>
+                        <li>绿电直连从单用户扩展至多用户，商业模式更丰富</li>
+                        <li>分散式风电政策落地，千乡万村驭风行动加速</li>
+                        <li>海上风电向深远海推进，用海管理规范化</li>
+                        <li>存量改造政策完善，以大代小市场空间打开</li>
+                    </ul>
+                </div>
+                <div class="hl-box warn">
+                    <strong>需关注风险：</strong>
+                    <ul>
+                        <li>新能源上网电价全面市场化，收益不确定性增加</li>
+                        <li>海上风电用海审批趋严，700公顷以上需国务院审批</li>
+                        <li>绿电直连自发自用比例要求（≥60%）提高门槛</li>
+                        <li>电力市场"负电价"风险需防范</li>
+                        <li>生态保护红线约束加强，选址难度提升</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========== 2029预测模块 ========== -->
+    <div id="predict" class="section">
+        <div class="section-header"><div class="num">6</div><h2>2029年机会点预测 <span class="predict-badge">PREDICTION</span></h2></div>
+
+        <div class="card">
+            <h3>预测依据与核心假设</h3>
+            <div class="hl-box">
+                <strong>核心目标锚定：</strong><br>
+                · 《风能北京宣言2.0》：2060年累计50亿kW → 十五五至十六五年均新增≥1.2亿kW <a class="src" href="http://www.news.cn/fortune/20251021/34116cc434624c57b36f5dc6635d06e0/c.html" target="_blank">新华网</a><br>
+                · 十五五规划：海上风电累计1亿kW，年均新增≥1500万kW <a class="src" href="http://www.nea.gov.cn/20260710/2706be51a7f1446a90658328d1c245d4/c.html" target="_blank">国家能源局</a><br>
+                · 国家能源局：十五五风电+光伏年均增2亿kW <a class="src" href="https://www.zglsth.com/nengyuan/shownews.php?lang=cn&id=18206" target="_blank">绿色碳汇网</a><br>
+                · 中金公司预测：2026年风电130-140GW <a class="src" href="https://www.nationalee.com/newsinfo/8941929.html" target="_blank">中金</a><br>
+                · GWEC：2024-2033年全球新增海风410GW <a class="src" href="https://pdf.dfcfw.com/pdf/H3_AP202411251641050524_1.pdf" target="_blank">东方财富</a>
+            </div>
+        </div>
+
+        <div class="card">
+            <h3>2029年风电市场规模预测</h3>
+            <table>
+                <thead><tr><th>维度</th><th>2025年(实际)</th><th>2026年(E)</th><th>2029年(P)</th><th>预测依据</th></tr></thead>
+                <tbody>
+                    <tr><td><strong>全国新增装机</strong></td><td>1.2亿kW</td><td>1.2-1.4亿kW</td><td><strong>1.3-1.5亿kW</strong></td><td>年均≥1.2亿kW目标 + 海风放量</td></tr>
+                    <tr><td><strong>全国累计装机</strong></td><td>6.4亿kW</td><td>~7.7亿kW</td><td><strong>~11-12亿kW</strong></td><td>2030年底线目标8亿kW(已大幅超额)，按当前增速推算</td></tr>
+                    <tr><td><strong>海上风电新增</strong></td><td>659万kW</td><td>1000-1200万kW</td><td><strong>2000-2500万kW</strong></td><td>深远海规模化，年均≥1500万kW</td></tr>
+                    <tr><td><strong>大基地新增</strong></td><td>~5500万kW</td><td>~6000万kW</td><td><strong>~6500万kW</strong></td><td>沙戈荒后续批次+水风光一体化持续推进</td></tr>
+                    <tr><td><strong>分散式新增</strong></td><td>~1000万kW</td><td>~1500万kW</td><td><strong>~2500-3000万kW</strong></td><td>千乡万村全面铺开</td></tr>
+                    <tr><td><strong>以大代小年改造</strong></td><td>~125万kW</td><td>~300万kW</td><td><strong>~800-1000万kW</strong></td><td>进入第一次退役高峰核心期</td></tr>
+                    <tr><td><strong>绿电直连累计项目</strong></td><td>~80个(H1已56个)</td><td>~200个</td><td><strong>~1000+个</strong></td><td>政策红利释放，多用户模式普及</td></tr>
+                </tbody>
+            </table>
+            <div class="note">备注：(E)为基于已发布数据的估算值，(P)为基于政策目标和行业趋势的预测值。实际数据受政策调整、技术突破、宏观经济等因素影响。</div>
+        </div>
+
+        <div class="card">
+            <h3>2029年机会点预测矩阵</h3>
+            <table>
+                <thead><tr><th>机会点</th><th>2025规模</th><th>2029预测规模</th><th>CAGR</th><th>变化趋势</th></tr></thead>
+                <tbody>
+                    <tr><td>大基地+央企发电</td><td>~5500万kW/年</td><td>~6500万kW/年</td><td>~5%</td><td class="trend-up">稳定增长</td></tr>
+                    <tr><td>绿电直连+负荷企业</td><td>起步期</td><td>~3000万kW/年</td><td>>50%</td><td class="trend-up"><strong>爆发式增长</strong></td></tr>
+                    <tr><td>以大代小+存量业主</td><td>~125万kW</td><td>~1000万kW/年</td><td>~70%</td><td class="trend-up"><strong>快速放量</strong></td></tr>
+                    <tr><td>分散式+千乡万村</td><td>~1000万kW</td><td>~3000万kW/年</td><td>~30%</td><td class="trend-up">加速增长</td></tr>
+                    <tr><td>深远海+央企</td><td>示范期</td><td>~1500万kW/年</td><td>>40%</td><td class="trend-up"><strong>规模化突破</strong></td></tr>
+                    <tr><td>常规集中式</td><td>~5500万kW</td><td>~5000万kW</td><td>~-2%</td><td class="trend-dn">占比下降</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="card">
+            <h3>2024-2029年各类型装机趋势预测</h3>
+            <div class="chart-box chart-box-lg" id="chart-predict-trend"></div>
+        </div>
+
+        <div class="card">
+            <h3>2029年三一重能战略机会点优先级（预测）</h3>
+            <div class="chart-box chart-box-lg" id="chart-predict-priority"></div>
+        </div>
+
+        <div class="card">
+            <h3>2029年战略建议</h3>
+            <div class="two-col">
+                <div>
+                    <h4>最大增量机会（2029）</h4>
+                    <ul>
+                        <li><strong>绿电直连+负荷企业</strong>：从起步到爆发，提前布局工业大客户</li>
+                        <li><strong>以大代小</strong>：进入高峰期，建立专项服务能力</li>
+                        <li><strong>深远海风电</strong>：规模化阶段，技术领先者通吃</li>
+                    </ul>
+                </div>
+                <div>
+                    <h4>结构性变化机会（2029）</h4>
+                    <ul>
+                        <li><strong>分散式爆发</strong>：千乡万村全面铺开，渠道为王</li>
+                        <li><strong>综合能源方案</strong>：从卖设备到卖方案转型完成</li>
+                        <li><strong>多用户直连</strong>：产业园区共享模式成熟</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div class="footer">
+    <p>风电行业战略规划与机会点分析报告 V2.0 | 三一重能 | 2026年7月</p>
+    <p style="margin-top:5px;">数据来源：国家能源局、国家发改委、BNEF彭博新能源财经、GWEC全球风能理事会、CWEA中国风能协会、风电头条等</p>
+</div>
+
+<script>
+// 导航
+function showSection(id) {
+    document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+    document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+    event.target.classList.add('active');
+    setTimeout(() => window.dispatchEvent(new Event('resize')), 100);
+}
+
+// 通用工具箱（PNG导出）
+const toolbox = { show: true, right: 15, top: 5, feature: { saveAsImage: { show: true, title: '导出PNG', type: 'png', pixelRatio: 2, backgroundColor: '#0a0e27' } } };
+
+// 图表1：2024 vs 2025对比
+const c1 = echarts.init(document.getElementById('chart-overview-compare'));
+c1.setOption({
+    backgroundColor: 'transparent',
+    toolbox,
+    tooltip: { trigger: 'axis' },
+    legend: { top: 5, textStyle: { color: '#94a3b8' } },
+    grid: { left: '10%', right: '5%', bottom: '10%', top: '15%' },
+    xAxis: { type: 'category', data: ['陆上风电', '海上风电', '风电新增合计', '风电累计', '发电量(亿kWh)'], axisLabel: { color: '#94a3b8', fontSize: 11 }, axisLine: { lineStyle: { color: '#1e3a5f' } } },
+    yAxis: { type: 'value', name: '万kW / 亿kWh', axisLabel: { color: '#94a3b8' }, splitLine: { lineStyle: { color: '#1e3a5f' } } },
+    series: [
+        { name: '2024年', type: 'bar', data: [7579, 404, 7982, 52100, 9916], itemStyle: { color: '#3b82f6', borderRadius: [3,3,0,0] } },
+        { name: '2025年', type: 'bar', data: [11000, 659, 12000, 64000, 11300], itemStyle: { color: '#8b5cf6', borderRadius: [3,3,0,0] } }
+    ]
+});
+
+// 图表2：项目分类对比（年度新增规模，万kW）
+const c2 = echarts.init(document.getElementById('chart-dim1-compare'));
+c2.setOption({
+    backgroundColor: 'transparent',
+    toolbox,
+    tooltip: { trigger: 'axis' },
+    legend: { top: 5, textStyle: { color: '#94a3b8' } },
+    grid: { left: '12%', right: '5%', bottom: '12%', top: '15%' },
+    xAxis: { type: 'category', data: ['大基地\n(沙戈荒+水风光)', '常规\n集中式', '分散式', '绿电直连\n(累计)', '存量改造\n(年)'], axisLabel: { color: '#94a3b8', fontSize: 10 }, axisLine: { lineStyle: { color: '#1e3a5f' } } },
+    yAxis: { type: 'value', name: '万kW', axisLabel: { color: '#94a3b8' }, splitLine: { lineStyle: { color: '#1e3a5f' } } },
+    series: [
+        { name: '2024年', type: 'bar', data: [3500, 4000, 800, 0, 100], itemStyle: { color: '#3b82f6', borderRadius: [3,3,0,0] } },
+        { name: '2025年', type: 'bar', data: [5500, 5500, 1000, 500, 125], itemStyle: { color: '#8b5cf6', borderRadius: [3,3,0,0] } },
+        { name: '2026年(E)', type: 'bar', data: [6000, 5500, 1500, 1500, 300], itemStyle: { color: '#22c55e', borderRadius: [3,3,0,0] } }
+    ]
+});
+
+// 图表3：区域TOP省累计装机
+const c3 = echarts.init(document.getElementById('chart-dim2-map'));
+c3.setOption({
+    backgroundColor: 'transparent',
+    toolbox,
+    tooltip: { trigger: 'axis', formatter: '{b}: {c} 万kW' },
+    grid: { left: '15%', right: '5%', bottom: '10%', top: '8%' },
+    xAxis: { type: 'value', name: '万kW', axisLabel: { color: '#94a3b8' }, splitLine: { lineStyle: { color: '#1e3a5f' } } },
+    yAxis: { type: 'category', data: ['广西','河南','山西','山东','甘肃','河北','新疆','内蒙古'].reverse(), axisLabel: { color: '#94a3b8' }, axisLine: { lineStyle: { color: '#1e3a5f' } } },
+    series: [{ type: 'bar', data: [8599, 4708, 3809, 3215, 2669, 2616, 2000, 1200], itemStyle: { color: function(p) { return p.dataIndex < 2 ? '#8b5cf6' : p.dataIndex < 4 ? '#3b82f6' : '#06b6d4'; }, borderRadius: [0,3,3,0] }, label: { show: true, position: 'right', color: '#94a3b8', formatter: '{c}万kW' } }]
+});
+
+// 图表4：三北vs中东南趋势
+const c4 = echarts.init(document.getElementById('chart-dim2-trend'));
+c4.setOption({
+    backgroundColor: 'transparent',
+    toolbox,
+    tooltip: { trigger: 'axis' },
+    legend: { top: 5, textStyle: { color: '#94a3b8' } },
+    grid: { left: '10%', right: '5%', bottom: '10%', top: '15%' },
+    xAxis: { type: 'category', data: ['2022年', '2023年', '2024年', '2025年'], axisLabel: { color: '#94a3b8' }, axisLine: { lineStyle: { color: '#1e3a5f' } } },
+    yAxis: { type: 'value', name: '占比%', max: 100, axisLabel: { color: '#94a3b8' }, splitLine: { lineStyle: { color: '#1e3a5f' } } },
+    series: [
+        { name: '三北地区', type: 'bar', stack: 'total', data: [72, 73, 75, 79], itemStyle: { color: '#3b82f6' } },
+        { name: '中东南', type: 'bar', stack: 'total', data: [28, 27, 25, 21], itemStyle: { color: '#22c55e' } }
+    ]
+});
+
+// 图表5：客户分类饼图
+const c5 = echarts.init(document.getElementById('chart-dim3-pie'));
+c5.setOption({
+    backgroundColor: 'transparent',
+    title: { text: '2025年客户类型开标占比', left: 'center', top: 5, textStyle: { color: '#e2e8f0', fontSize: 13 } },
+    tooltip: { trigger: 'item' },
+    series: [{ type: 'pie', radius: ['35%', '65%'], center: ['50%', '55%'], itemStyle: { borderRadius: 5 }, label: { color: '#e2e8f0', formatter: '{b}\n{d}%' }, data: [
+        { value: 81, name: '发电企业(央企)', itemStyle: { color: '#3b82f6' } },
+        { value: 12, name: '发电企业(地方国企)', itemStyle: { color: '#8b5cf6' } },
+        { value: 4, name: '负荷企业', itemStyle: { color: '#22c55e' } },
+        { value: 2, name: '传统能源企业', itemStyle: { color: '#f59e0b' } },
+        { value: 1, name: '转售企业', itemStyle: { color: '#ec4899' } }
+    ]}]
+});
+
+// 图表6：客户开标容量
+const c6 = echarts.init(document.getElementById('chart-dim3-bar'));
+c6.setOption({
+    backgroundColor: 'transparent',
+    title: { text: '2025年各月央企开标占比', left: 'center', top: 5, textStyle: { color: '#e2e8f0', fontSize: 13 } },
+    tooltip: { trigger: 'axis' },
+    grid: { left: '12%', right: '5%', bottom: '12%', top: '18%' },
+    xAxis: { type: 'category', data: ['1月','3月','5月','7月','9月','12月'], axisLabel: { color: '#94a3b8' }, axisLine: { lineStyle: { color: '#1e3a5f' } } },
+    yAxis: { type: 'value', name: '%', max: 100, axisLabel: { color: '#94a3b8' }, splitLine: { lineStyle: { color: '#1e3a5f' } } },
+    series: [
+        { name: '央企占比', type: 'line', data: [82, 80, 78, 85, 88, 94], lineStyle: { color: '#3b82f6', width: 3 }, itemStyle: { color: '#3b82f6' }, areaStyle: { color: { type: 'linear', x: 0, y: 0, x2: 0, y2: 1, colorStops: [{offset: 0, color: 'rgba(59,130,246,0.3)'}, {offset: 1, color: 'rgba(59,130,246,0)'}] } } }
+    ]
+});
+
+// 图表7：机会点气泡图
+const c7 = echarts.init(document.getElementById('chart-cross-bubble'));
+c7.setOption({
+    backgroundColor: 'transparent',
+    toolbox,
+    tooltip: { formatter: function(p) { return p.data[3] + '<br/>市场规模: ' + p.data[0] + '<br/>紧迫性: ' + p.data[1] + '<br/>三一匹配度: ' + p.data[2]; } },
+    xAxis: { name: '市场规模', nameLocation: 'center', nameGap: 25, axisLabel: { color: '#94a3b8' }, splitLine: { lineStyle: { color: '#1e3a5f' } } },
+    yAxis: { name: '紧迫性', axisLabel: { color: '#94a3b8' }, splitLine: { lineStyle: { color: '#1e3a5f' } } },
+    series: [{ type: 'scatter', symbolSize: function(d) { return d[2]*1.2; }, data: [
+        [95, 85, 55, '新蒙大基地\n+央企', '#3b82f6'],
+        [85, 90, 50, '中东南绿电直连\n+负荷企业', '#8b5cf6'],
+        [70, 80, 45, '东北以大代小\n+存量业主', '#22c55e'],
+        [65, 70, 42, '中东南分散式\n+地方国企', '#f59e0b'],
+        [60, 65, 38, '新蒙绿电直连\n+数据中心', '#06b6d4'],
+        [50, 55, 35, '西南水风光\n+发电企业', '#ec4899'],
+        [75, 45, 40, '深远海+央企', '#14b8a6']
+    ], itemStyle: { color: function(p) { return p.data[4]; }, shadowBlur: 8, shadowColor: 'rgba(0,0,0,0.3)' }, label: { show: true, formatter: function(p) { return p.data[3]; }, position: 'top', color: '#e2e8f0', fontSize: 10 } }]
+});
+
+// 图表8：预测趋势
+const c8 = echarts.init(document.getElementById('chart-predict-trend'));
+c8.setOption({
+    backgroundColor: 'transparent',
+    toolbox,
+    tooltip: { trigger: 'axis' },
+    legend: { top: 5, textStyle: { color: '#94a3b8' } },
+    grid: { left: '10%', right: '5%', bottom: '10%', top: '15%' },
+    xAxis: { type: 'category', data: ['2024', '2025', '2026(E)', '2027(P)', '2028(P)', '2029(P)'], axisLabel: { color: '#94a3b8' }, axisLine: { lineStyle: { color: '#1e3a5f' } } },
+    yAxis: { type: 'value', name: '万kW/年', axisLabel: { color: '#94a3b8' }, splitLine: { lineStyle: { color: '#1e3a5f' } } },
+    series: [
+        { name: '大基地', type: 'line', data: [3500, 5500, 6000, 6200, 6500, 6500], lineStyle: { color: '#8b5cf6', width: 2 }, itemStyle: { color: '#8b5cf6' } },
+        { name: '常规集中式', type: 'line', data: [4000, 5500, 5500, 5300, 5100, 5000], lineStyle: { color: '#3b82f6', width: 2 }, itemStyle: { color: '#3b82f6' } },
+        { name: '分散式', type: 'line', data: [800, 1000, 1500, 2000, 2500, 3000], lineStyle: { color: '#22c55e', width: 2 }, itemStyle: { color: '#22c55e' } },
+        { name: '绿电直连(年新增)', type: 'line', data: [0, 500, 1500, 2000, 2500, 3000], lineStyle: { color: '#f59e0b', width: 2, type: 'dashed' }, itemStyle: { color: '#f59e0b' } },
+        { name: '以大代小', type: 'line', data: [100, 125, 300, 500, 800, 1000], lineStyle: { color: '#ef4444', width: 2 }, itemStyle: { color: '#ef4444' } },
+        { name: '海上风电', type: 'line', data: [404, 659, 1100, 1500, 2000, 2500], lineStyle: { color: '#06b6d4', width: 2 }, itemStyle: { color: '#06b6d4' } }
+    ]
+});
+
+// 图表9：2029优先级
+const c9 = echarts.init(document.getElementById('chart-predict-priority'));
+c9.setOption({
+    backgroundColor: 'transparent',
+    toolbox,
+    tooltip: {},
+    grid: { left: '15%', right: '5%', bottom: '10%', top: '10%' },
+    xAxis: { type: 'value', name: '2029年市场规模(万kW/年)', axisLabel: { color: '#94a3b8' }, splitLine: { lineStyle: { color: '#1e3a5f' } } },
+    yAxis: { type: 'value', name: '三一竞争力匹配度', axisLabel: { color: '#94a3b8' }, splitLine: { lineStyle: { color: '#1e3a5f' } } },
+    series: [
+        { name: '2029第一梯队', type: 'scatter', symbolSize: 42, data: [[3000, 90], [1000, 85]], itemStyle: { color: '#ef4444' }, label: { show: true, formatter: function(p) { return ['绿电直连\n+负荷企业', '以大代小'][p.dataIndex]; }, position: 'inside', color: '#fff', fontSize: 10 } },
+        { name: '2029第二梯队', type: 'scatter', symbolSize: 38, data: [[6500, 80], [3000, 75], [2500, 70]], itemStyle: { color: '#f59e0b' }, label: { show: true, formatter: function(p) { return ['大基地\n+央企', '分散式', '深远海'][p.dataIndex]; }, position: 'inside', color: '#fff', fontSize: 10 } },
+        { name: '2029第三梯队', type: 'scatter', symbolSize: 32, data: [[5000, 55], [1500, 50]], itemStyle: { color: '#22c55e' }, label: { show: true, formatter: function(p) { return ['常规\n集中式', '西南\n水风光'][p.dataIndex]; }, position: 'inside', color: '#fff', fontSize: 10 } }
+    ],
+    legend: { top: 5, textStyle: { color: '#94a3b8' } }
+});
+
+window.addEventListener('resize', () => { [c1,c2,c3,c4,c5,c6,c7,c8,c9].forEach(c => c.resize()); });
+</script>
+</body>
+</html>
