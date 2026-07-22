@@ -1087,6 +1087,52 @@
             </table>
         </div>
 
+        <!-- 新增：2029年能力×吸引力评估模块 -->
+        <div class="card">
+            <h3>2029年机会点评分模型（能力×吸引力）</h3>
+            <div class="hl-box">
+                <strong>模型说明：</strong>横轴为三一重能能力评分（0-10分，越高表示越具备抓住机会的能力），纵轴为市场吸引力评分（0-10分）。气泡大小代表市场规模。吸引力由三个关键因素加权计算：市场规模（70%）+ 增长空间（10%）+ 盈利空间（20%）。
+            </div>
+            <table>
+                <thead><tr><th>关键因素</th><th>特征指标</th><th>权重</th><th>评分说明</th></tr></thead>
+                <tbody>
+                    <tr><td><strong>市场规模</strong></td><td>当前容量</td><td>70%</td><td>高[9-10]：300万kW以上；中[6-9]：100-300万kW；低[1-6]：100万kW以下</td></tr>
+                    <tr><td><strong>增长空间</strong></td><td>预期增速</td><td>10%</td><td>高[9-10]：三一获取份额26-29年CAGR＞30%；中[6-9]：5%≤CAGR≤30%；低[1-6]：CAGR≤5%</td></tr>
+                    <tr><td><strong>盈利空间</strong></td><td>毛利率</td><td>20%</td><td>高[9-10]：毛利率＞10%；中[6-9]：8%＜毛利率≤10%；低[1-6]：毛利率≤8%</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="card">
+            <h3>2029年重点机会点清单（三维度交叉）</h3>
+            <table>
+                <thead><tr><th>机会点</th><th>项目类型</th><th>区域</th><th>客户类型</th><th>市场规模<br>(万kW)</th><th>市场规模<br>得分</th><th>增长空间<br>得分</th><th>盈利空间<br>得分</th><th>吸引力</th><th>我司能力<br>(待填)</th></tr></thead>
+                <tbody>
+                    <tr><td><strong>绿电直连·中东南·负荷企业</strong></td><td>绿电直连</td><td>中东南区域</td><td>负荷企业</td><td>3405</td><td>9.5</td><td>9.0</td><td>9.5</td><td><strong>9.45</strong></td><td>6.5</td></tr>
+                    <tr><td><strong>海上风电·近海·发电企业</strong></td><td>大基地</td><td>近海区域</td><td>发电企业</td><td>3500</td><td>9.5</td><td>7.5</td><td>9.5</td><td><strong>9.30</strong></td><td>6.0</td></tr>
+                    <tr><td><strong>存量改造·东北·发电企业</strong></td><td>存量改造</td><td>东北区域</td><td>发电企业</td><td>2000</td><td>9.0</td><td>8.5</td><td>8.0</td><td><strong>8.75</strong></td><td>7.0</td></tr>
+                    <tr><td><strong>大基地·新疆内蒙·发电企业</strong></td><td>大基地</td><td>新疆内蒙区域</td><td>发电企业</td><td>3000</td><td>9.5</td><td>7.0</td><td>6.0</td><td><strong>8.55</strong></td><td>7.5</td></tr>
+                    <tr><td><strong>绿电直连·新疆内蒙·负荷企业</strong></td><td>绿电直连</td><td>新疆内蒙区域</td><td>负荷企业</td><td>500</td><td>8.0</td><td>9.0</td><td>9.5</td><td><strong>8.40</strong></td><td>5.5</td></tr>
+                    <tr><td><strong>分散式·中东南·地方国企</strong></td><td>分散式</td><td>中东南区域</td><td>发电企业/地方国企</td><td>1500</td><td>8.5</td><td>8.0</td><td>7.0</td><td><strong>8.15</strong></td><td>6.0</td></tr>
+                    <tr><td><strong>常规集中式·新疆内蒙·发电企业</strong></td><td>常规集中式</td><td>新疆内蒙区域</td><td>发电企业</td><td>800</td><td>8.0</td><td>7.0</td><td>7.0</td><td><strong>7.70</strong></td><td>7.5</td></tr>
+                    <tr><td><strong>大基地·甘宁青·发电企业</strong></td><td>大基地</td><td>甘宁青区域</td><td>发电企业</td><td>600</td><td>8.0</td><td>7.0</td><td>6.0</td><td><strong>7.50</strong></td><td>7.0</td></tr>
+                    <tr><td><strong>大基地·西南·发电企业</strong></td><td>大基地</td><td>西南区域</td><td>发电企业</td><td>400</td><td>7.0</td><td>7.5</td><td>7.0</td><td><strong>7.05</strong></td><td>6.5</td></tr>
+                    <tr><td><strong>常规集中式·中东南·负荷企业</strong></td><td>常规集中式</td><td>中东南区域</td><td>负荷企业</td><td>400</td><td>7.0</td><td>7.0</td><td>6.0</td><td><strong>6.80</strong></td><td>5.5</td></tr>
+                </tbody>
+            </table>
+            <div class="note">
+                <strong>数据说明：</strong>表中市场规模、增长空间、盈利空间为基于现有报告数据的初步估算，吸引力=市场规模得分×70%+增长空间得分×10%+盈利空间得分×20%。我司能力列为占位值（0-10分），待你提供具体评分后直接替换。增长空间指标为三一获取份额2026-2029年复合增速的预估。
+            </div>
+        </div>
+
+        <div class="card">
+            <h3>2029年机会点能力-吸引力气泡图</h3>
+            <div class="chart-box chart-box-lg" id="chart-forecast2029-bubble"></div>
+            <div class="note">
+                <strong>象限说明：</strong>以三一能力5分、市场吸引力8分为界划分四个区域。右上（能力≥5且吸引力≥8）为<strong>重点突破区</strong>；左上（能力<5且吸引力≥8）为<strong>能力提升区</strong>；右下（能力≥5且吸引力<8）为<strong>保持优势区</strong>；左下（能力<5且吸引力<8）为<strong>观察区</strong>。气泡大小代表市场规模。
+            </div>
+        </div>
+
         <div class="card">
             <h3>2024-2029年各类型装机趋势预测</h3>
             <div class="chart-box chart-box-lg" id="chart-predict-trend"></div>
@@ -1287,7 +1333,86 @@ c9.setOption({
     legend: { top: 5, textStyle: { color: '#94a3b8' } }
 });
 
-window.addEventListener('resize', () => { [c1,c2,c3,c4,c5,c6,c7,c8,c9].forEach(c => c.resize()); });
+// 图表10：2029年能力-吸引力气泡图
+const c10 = echarts.init(document.getElementById('chart-forecast2029-bubble'));
+c10.setOption({
+    backgroundColor: 'transparent',
+    toolbox,
+    tooltip: {
+        trigger: 'item',
+        formatter: function(p) {
+            return '<strong>' + p.data[3] + '</strong><br/>' +
+                   '市场规模: ' + p.data[2] + '万kW<br/>' +
+                   '市场规模得分: ' + p.data[4] + '<br/>' +
+                   '增长空间得分: ' + p.data[5] + '<br/>' +
+                   '盈利空间得分: ' + p.data[6] + '<br/>' +
+                   '市场吸引力: ' + p.data[1] + '<br/>' +
+                   '三一能力(占位): ' + p.data[0];
+        }
+    },
+    grid: { left: '10%', right: '10%', bottom: '12%', top: '10%' },
+    xAxis: { 
+        type: 'value', 
+        name: '三一能力（0-10）', 
+        nameLocation: 'center',
+        nameGap: 25,
+        min: 0, 
+        max: 10, 
+        axisLabel: { color: '#94a3b8' }, 
+        splitLine: { lineStyle: { color: '#1e3a5f' } } 
+    },
+    yAxis: { 
+        type: 'value', 
+        name: '市场吸引力（0-10）', 
+        nameLocation: 'center',
+        nameGap: 35,
+        min: 0, 
+        max: 10, 
+        axisLabel: { color: '#94a3b8' }, 
+        splitLine: { lineStyle: { color: '#1e3a5f' } } 
+    },
+    series: [{
+        type: 'scatter',
+        symbolSize: function(d) { return Math.sqrt(d[2]) * 0.85; },
+        data: [
+            [6.5, 9.45, 3405, '绿电直连·中东南·负荷企业', 9.5, 9.0, 9.5, '#8b5cf6'],
+            [6.0, 9.30, 3500, '海上风电·近海·发电企业', 9.5, 7.5, 9.5, '#06b6d4'],
+            [7.0, 8.75, 2000, '存量改造·东北·发电企业', 9.0, 8.5, 8.0, '#22c55e'],
+            [7.5, 8.55, 3000, '大基地·新疆内蒙·发电企业', 9.5, 7.0, 6.0, '#3b82f6'],
+            [5.5, 8.40, 500, '绿电直连·新疆内蒙·负荷企业', 8.0, 9.0, 9.5, '#f59e0b'],
+            [6.0, 8.15, 1500, '分散式·中东南·地方国企', 8.5, 8.0, 7.0, '#14b8a6'],
+            [7.5, 7.70, 800, '常规集中式·新疆内蒙·发电企业', 8.0, 7.0, 7.0, '#64748b'],
+            [7.0, 7.50, 600, '大基地·甘宁青·发电企业', 8.0, 7.0, 6.0, '#6366f1'],
+            [6.5, 7.05, 400, '大基地·西南·发电企业', 7.0, 7.5, 7.0, '#ec4899'],
+            [5.5, 6.80, 400, '常规集中式·中东南·负荷企业', 7.0, 7.0, 6.0, '#a855f7']
+        ],
+        itemStyle: { 
+            color: function(p) { return p.data[7]; }, 
+            shadowBlur: 10, 
+            shadowColor: 'rgba(0,0,0,0.4)' 
+        },
+        label: { 
+            show: true, 
+            formatter: function(p) { return p.data[3]; }, 
+            position: 'top', 
+            color: '#e2e8f0', 
+            fontSize: 10,
+            lineHeight: 12
+        },
+        markLine: {
+            silent: true,
+            symbol: 'none',
+            lineStyle: { type: 'dashed', color: '#64748b', width: 1 },
+            data: [
+                [{ coord: [5, 0] }, { coord: [5, 10] }],
+                [{ coord: [0, 8] }, { coord: [10, 8] }]
+            ],
+            label: { show: false }
+        }
+    }]
+});
+
+window.addEventListener('resize', () => { [c1,c2,c3,c4,c5,c6,c7,c8,c9,c10].forEach(c => c.resize()); });
 </script>
 </body>
 </html>
