@@ -1194,8 +1194,11 @@
         <div class="card">
             <h3>2029年机会点能力-吸引力气泡图 1.0（预测版本）</h3>
             <div class="chart-box chart-box-lg" id="chart-forecast2029-bubble"></div>
+            <div style="text-align:right; margin-top:8px;">
+                <button onclick="exportBubbleChart(bubbleData1, '2029机会点气泡图1.0_预测版本.png', '2029年机会点能力-吸引力气泡图 1.0（预测版本）')" style="padding:6px 14px; background:#3b82f6; color:#fff; border:none; border-radius:4px; cursor:pointer; font-size:13px;">导出PNG（适配PPT白底，高清）</button>
+            </div>
             <div class="note">
-                <strong>象限说明：</strong>以三一能力6分、市场吸引力8分为界划分四个区域。右上（能力≥6且吸引力≥8）为<strong>重点突破区</strong>；左上（能力<6且吸引力≥8）为<strong>能力提升区</strong>；右下（能力≥6且吸引力<8）为<strong>保持优势区</strong>；左下（能力<6且吸引力<8）为<strong>观察区</strong>。气泡大小代表市场规模。<br>
+                <strong>象限说明：</strong>坐标轴范围为我司能力6-10、市场吸引力6-10。以三一能力6分、市场吸引力8分为界，上半区域（吸引力≥8）为<strong>重点突破区</strong>，下半区域（吸引力<8）为<strong>保持优势区</strong>。气泡大小代表市场规模。<br>
                 <strong>能力分说明：</strong>我司能力分数参考关键成功要素评分表中“29三一”预测列（综合7.8分），按各机会点所需核心能力进行差异化赋分。
             </div>
         </div>
@@ -1222,8 +1225,11 @@
                 </tbody>
             </table>
             <div class="chart-box chart-box-lg" id="chart-forecast2029-bubble-v2"></div>
+            <div style="text-align:right; margin-top:8px;">
+                <button onclick="exportBubbleChart(bubbleData2, '2029机会点气泡图2.0_自行预测版.png', '2029年机会点能力-吸引力气泡图 2.0（自行预测版）')" style="padding:6px 14px; background:#3b82f6; color:#fff; border:none; border-radius:4px; cursor:pointer; font-size:13px;">导出PNG（适配PPT白底，高清）</button>
+            </div>
             <div class="note">
-                <strong>象限说明：</strong>与1.0一致，以三一能力6分、市场吸引力8分为界。右上（能力≥6且吸引力≥8）为重点突破区；左上（能力<6且吸引力≥8）为能力提升区；右下（能力≥6且吸引力<8）为保持优势区；左下（能力<6且吸引力<8）为观察区。
+                <strong>象限说明：</strong>与1.0一致，坐标轴范围为我司能力6-10、市场吸引力6-10。以三一能力6分、市场吸引力8分为界，上半区域（吸引力≥8）为重点突破区，下半区域（吸引力<8）为保持优势区。
             </div>
         </div>
 
@@ -1431,6 +1437,142 @@ c9.setOption({
     legend: { top: 5, textStyle: { color: '#94a3b8' } }
 });
 
+// 气泡图1.0数据
+const bubbleData1 = [
+    [7.8, 9.50, 2200, '绿电直连\n+负荷企业', 9.5, 9.5, 9.5, '#8b5cf6'],
+    [8.1, 8.05, 3800, '大基地\n+发电企业', 9.5, 4.0, 5.0, '#06b6d4'],
+    [7.6, 8.05, 700, '存量改造\n+发电企业', 8.0, 8.5, 8.0, '#22c55e'],
+    [7.4, 7.80, 800, '分散式\n+负荷企业', 8.0, 8.0, 7.0, '#14b8a6'],
+    [7.7, 7.75, 1000, '分散式\n+发电企业', 8.5, 8.0, 5.0, '#3b82f6'],
+    [7.3, 7.65, 1000, '大基地\n+转售企业', 8.5, 7.0, 5.0, '#6366f1'],
+    [7.2, 7.65, 1000, '常规集中式\n+负荷企业', 8.5, 7.0, 5.0, '#a855f7'],
+    [7.9, 7.60, 2400, '常规集中式\n+发电企业', 9.0, 3.0, 5.0, '#64748b'],
+    [7.5, 7.05, 200, '绿电直连\n+传统能源', 6.0, 9.5, 9.5, '#f59e0b'],
+    [7.0, 6.40, 300, '存量改造\n+转售企业', 6.5, 8.5, 5.0, '#ec4899']
+];
+
+// 气泡图2.0数据
+const bubbleData2 = [
+    [7.8, 8.35, 546, '绿电直连\n+负荷企业', 8.0, 8.5, 9.5, '#8b5cf6'],
+    [7.7, 8.20, 1456, '绿电直连\n+发电企业', 9.0, 9.0, 5.0, '#3b82f6'],
+    [8.1, 7.90, 1736, '大基地\n+发电企业', 9.5, 2.5, 5.0, '#06b6d4'],
+    [7.9, 7.45, 1344, '常规集中式\n+发电企业', 9.0, 1.5, 5.0, '#64748b'],
+    [7.4, 7.35, 208, '绿电直连\n+传统能源', 6.5, 9.0, 9.5, '#f97316'],
+    [7.6, 7.30, 448, '存量改造\n+发电企业', 8.0, 1.0, 8.0, '#22c55e'],
+    [7.5, 6.90, 616, '分散式\n+发电企业', 8.0, 3.0, 5.0, '#f59e0b'],
+    [7.3, 6.70, 651, '大基地\n+负荷企业', 8.0, 1.0, 5.0, '#a855f7'],
+    [7.2, 6.70, 504, '常规集中式\n+负荷企业', 8.0, 1.0, 5.0, '#14b8a6'],
+    [7.0, 6.35, 279, '大基地\n+转售企业', 6.5, 8.0, 5.0, '#6366f1']
+];
+
+// 导出气泡图为高清PNG（适配PPT白底）
+function exportBubbleChart(data, filename, title) {
+    const tempDiv = document.createElement('div');
+    tempDiv.style.width = '1400px';
+    tempDiv.style.height = '900px';
+    tempDiv.style.position = 'absolute';
+    tempDiv.style.left = '-9999px';
+    tempDiv.style.top = '0';
+    document.body.appendChild(tempDiv);
+
+    const tempChart = echarts.init(tempDiv);
+    tempChart.setOption({
+        backgroundColor: '#ffffff',
+        title: {
+            text: title,
+            left: 'center',
+            top: 15,
+            textStyle: { color: '#1e293b', fontSize: 18, fontWeight: 'bold' }
+        },
+        tooltip: {
+            trigger: 'item',
+            backgroundColor: 'rgba(255,255,255,0.95)',
+            borderColor: '#cbd5e1',
+            borderWidth: 1,
+            textStyle: { color: '#1e293b' },
+            formatter: function(p) {
+                return '<strong>' + p.data[3].replace(/\n/g, '') + '</strong><br/>' +
+                       '市场规模: ' + p.data[2] + '万kW<br/>' +
+                       '市场规模得分: ' + p.data[4] + '<br/>' +
+                       '增长空间得分: ' + p.data[5] + '<br/>' +
+                       '盈利空间得分: ' + p.data[6] + '<br/>' +
+                       '市场吸引力: ' + p.data[1] + '<br/>' +
+                       '三一能力: ' + p.data[0];
+            }
+        },
+        grid: { left: '12%', right: '10%', bottom: '15%', top: '15%' },
+        xAxis: {
+            type: 'value',
+            name: '三一能力（0-10）',
+            nameLocation: 'center',
+            nameGap: 30,
+            min: 6,
+            max: 10,
+            axisLabel: { color: '#475569', fontSize: 12 },
+            axisLine: { lineStyle: { color: '#94a3b8' } },
+            nameTextStyle: { color: '#1e293b', fontSize: 13, fontWeight: 'bold' },
+            splitLine: { lineStyle: { color: '#e2e8f0' } }
+        },
+        yAxis: {
+            type: 'value',
+            name: '市场吸引力（0-10）',
+            nameLocation: 'center',
+            nameGap: 40,
+            min: 6,
+            max: 10,
+            axisLabel: { color: '#475569', fontSize: 12 },
+            axisLine: { lineStyle: { color: '#94a3b8' } },
+            nameTextStyle: { color: '#1e293b', fontSize: 13, fontWeight: 'bold' },
+            splitLine: { lineStyle: { color: '#e2e8f0' } }
+        },
+        series: [{
+            type: 'scatter',
+            symbolSize: function(d) { return Math.sqrt(d[2]) * 1.15; },
+            data: data,
+            itemStyle: {
+                color: function(p) { return p.data[7]; },
+                shadowBlur: 8,
+                shadowColor: 'rgba(0,0,0,0.15)'
+            },
+            label: {
+                show: true,
+                formatter: function(p) { return p.data[3]; },
+                position: 'top',
+                color: '#1e293b',
+                fontSize: 12,
+                lineHeight: 14,
+                fontWeight: 'bold'
+            },
+            markLine: {
+                silent: true,
+                symbol: 'none',
+                lineStyle: { type: 'dashed', color: '#64748b', width: 1.5 },
+                data: [
+                    [{ coord: [6, 6] }, { coord: [6, 10] }],
+                    [{ coord: [6, 8] }, { coord: [10, 8] }]
+                ],
+                label: { show: false }
+            }
+        }]
+    });
+
+    setTimeout(function() {
+        const url = tempChart.getDataURL({
+            type: 'png',
+            pixelRatio: 3,
+            backgroundColor: '#ffffff'
+        });
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = filename;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        tempChart.dispose();
+        document.body.removeChild(tempDiv);
+    }, 400);
+}
+
 // 图表10：2029年能力-吸引力气泡图
 const c10 = echarts.init(document.getElementById('chart-forecast2029-bubble'));
 c10.setOption({
@@ -1454,7 +1596,7 @@ c10.setOption({
         name: '三一能力（0-10）', 
         nameLocation: 'center',
         nameGap: 25,
-        min: 4, 
+        min: 6, 
         max: 10, 
         axisLabel: { color: '#94a3b8' }, 
         splitLine: { lineStyle: { color: '#1e3a5f' } } 
@@ -1464,7 +1606,7 @@ c10.setOption({
         name: '市场吸引力（0-10）', 
         nameLocation: 'center',
         nameGap: 35,
-        min: 4, 
+        min: 6, 
         max: 10, 
         axisLabel: { color: '#94a3b8' }, 
         splitLine: { lineStyle: { color: '#1e3a5f' } } 
@@ -1472,18 +1614,7 @@ c10.setOption({
     series: [{
         type: 'scatter',
         symbolSize: function(d) { return Math.sqrt(d[2]) * 0.85; },
-        data: [
-            [7.8, 9.50, 2200, '绿电直连\n+负荷企业', 9.5, 9.5, 9.5, '#8b5cf6'],
-            [8.1, 8.05, 3800, '大基地\n+发电企业', 9.5, 4.0, 5.0, '#06b6d4'],
-            [7.6, 8.05, 700, '存量改造\n+发电企业', 8.0, 8.5, 8.0, '#22c55e'],
-            [7.4, 7.80, 800, '分散式\n+负荷企业', 8.0, 8.0, 7.0, '#14b8a6'],
-            [7.7, 7.75, 1000, '分散式\n+发电企业', 8.5, 8.0, 5.0, '#3b82f6'],
-            [7.3, 7.65, 1000, '大基地\n+转售企业', 8.5, 7.0, 5.0, '#6366f1'],
-            [7.2, 7.65, 1000, '常规集中式\n+负荷企业', 8.5, 7.0, 5.0, '#a855f7'],
-            [7.9, 7.60, 2400, '常规集中式\n+发电企业', 9.0, 3.0, 5.0, '#64748b'],
-            [7.5, 7.05, 200, '绿电直连\n+传统能源', 6.0, 9.5, 9.5, '#f59e0b'],
-            [7.0, 6.40, 300, '存量改造\n+转售企业', 6.5, 8.5, 5.0, '#ec4899']
-        ],
+        data: bubbleData1,
         itemStyle: { 
             color: function(p) { return p.data[7]; }, 
             shadowBlur: 10, 
@@ -1502,8 +1633,8 @@ c10.setOption({
             symbol: 'none',
             lineStyle: { type: 'dashed', color: '#64748b', width: 1 },
             data: [
-                [{ coord: [6, 4] }, { coord: [6, 10] }],
-                [{ coord: [4, 8] }, { coord: [10, 8] }]
+                [{ coord: [6, 6] }, { coord: [6, 10] }],
+                [{ coord: [6, 8] }, { coord: [10, 8] }]
             ],
             label: { show: false }
         }
@@ -1533,7 +1664,7 @@ c11.setOption({
         name: '三一能力（0-10）', 
         nameLocation: 'center',
         nameGap: 25,
-        min: 4, 
+        min: 6, 
         max: 10, 
         axisLabel: { color: '#94a3b8' }, 
         splitLine: { lineStyle: { color: '#1e3a5f' } } 
@@ -1543,7 +1674,7 @@ c11.setOption({
         name: '市场吸引力（0-10）', 
         nameLocation: 'center',
         nameGap: 35,
-        min: 4, 
+        min: 6, 
         max: 10, 
         axisLabel: { color: '#94a3b8' }, 
         splitLine: { lineStyle: { color: '#1e3a5f' } } 
@@ -1551,18 +1682,7 @@ c11.setOption({
     series: [{
         type: 'scatter',
         symbolSize: function(d) { return Math.sqrt(d[2]) * 0.85; },
-        data: [
-            [7.8, 8.35, 546, '绿电直连\n+负荷企业', 8.0, 8.5, 9.5, '#8b5cf6'],
-            [7.7, 8.20, 1456, '绿电直连\n+发电企业', 9.0, 9.0, 5.0, '#3b82f6'],
-            [8.1, 7.90, 1736, '大基地\n+发电企业', 9.5, 2.5, 5.0, '#06b6d4'],
-            [7.9, 7.45, 1344, '常规集中式\n+发电企业', 9.0, 1.5, 5.0, '#64748b'],
-            [7.4, 7.35, 208, '绿电直连\n+传统能源', 6.5, 9.0, 9.5, '#f97316'],
-            [7.6, 7.30, 448, '存量改造\n+发电企业', 8.0, 1.0, 8.0, '#22c55e'],
-            [7.5, 6.90, 616, '分散式\n+发电企业', 8.0, 3.0, 5.0, '#f59e0b'],
-            [7.3, 6.70, 651, '大基地\n+负荷企业', 8.0, 1.0, 5.0, '#a855f7'],
-            [7.2, 6.70, 504, '常规集中式\n+负荷企业', 8.0, 1.0, 5.0, '#14b8a6'],
-            [7.0, 6.35, 279, '大基地\n+转售企业', 6.5, 8.0, 5.0, '#6366f1']
-        ],
+        data: bubbleData2,
         itemStyle: { 
             color: function(p) { return p.data[7]; }, 
             shadowBlur: 10, 
@@ -1581,8 +1701,8 @@ c11.setOption({
             symbol: 'none',
             lineStyle: { type: 'dashed', color: '#64748b', width: 1 },
             data: [
-                [{ coord: [6, 4] }, { coord: [6, 10] }],
-                [{ coord: [4, 8] }, { coord: [10, 8] }]
+                [{ coord: [6, 6] }, { coord: [6, 10] }],
+                [{ coord: [6, 8] }, { coord: [10, 8] }]
             ],
             label: { show: false }
         }
