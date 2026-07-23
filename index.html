@@ -1478,10 +1478,6 @@ const bubbleData2 = [
     [7.0, 6.35, 279, '大基地\n+转售企业', 6.5, 8.0, 5.0, '#4f46e5', 6]
 ];
 
-// 各机会点标签位置（避免重叠/被其他气泡遮挡）：与 bubbleData1/bubbleData2 顺序一一对应
-const labelPositions1 = ['top', 'right', 'left', 'bottom-left', 'top', 'bottom', 'left', 'right', 'bottom', 'left'];
-const labelPositions2 = ['top', 'right', 'top-right', 'right', 'left', 'top-left', 'bottom', 'right', 'left', 'bottom-left'];
-
 // 公共Tooltip
 function bubbleTooltipFormatter(p) {
     return '<strong>' + p.data[3].replace(/\n/g, '') + '</strong><br/>' +
@@ -1540,17 +1536,10 @@ const bubbleMarkLine = {
     label: { show: false }
 };
 
-function getLabelPositions(data) {
-    if (data === bubbleData1) return labelPositions1;
-    if (data === bubbleData2) return labelPositions2;
-    return [];
-}
-
 // 气泡图模式配置
 function getBubbleOption(data, title, forExport) {
     const labelColor = forExport ? '#000000' : '#e2e8f0';
     const axis = getBubbleAxis(forExport);
-    const positions = getLabelPositions(data);
     return {
         backgroundColor: forExport ? '#ffffff' : 'transparent',
         title: forExport ? { text: title, left: 'center', top: 20, textStyle: { color: '#000000', fontSize: 22, fontWeight: 'bold' } } : undefined,
@@ -1567,7 +1556,7 @@ function getBubbleOption(data, title, forExport) {
         yAxis: axis.yAxis,
         series: [{
             type: 'scatter',
-            symbolSize: function(d) { return Math.sqrt(d[2]) * (forExport ? 2.0 : 1.45); },
+            symbolSize: function(d) { return Math.sqrt(d[2]) * (forExport ? 2.6 : 1.885); },
             data: data,
             itemStyle: {
                 color: function(p) { return p.data[7]; },
@@ -1577,8 +1566,8 @@ function getBubbleOption(data, title, forExport) {
             label: {
                 show: true,
                 formatter: function(p) { return p.data[3]; },
-                position: function(p) { return positions[p.dataIndex] || 'top'; },
-                distance: forExport ? 16 : 10,
+                position: 'top',
+                distance: forExport ? 12 : 8,
                 color: labelColor,
                 fontSize: forExport ? 14 : 11,
                 lineHeight: forExport ? 16 : 13,
@@ -1586,8 +1575,8 @@ function getBubbleOption(data, title, forExport) {
                 textBorderColor: forExport ? '#ffffff' : '#0f172a',
                 textBorderWidth: forExport ? 3 : 2
             },
-            labelLine: { show: true, length: 6, length2: 6, lineStyle: { color: forExport ? '#6b7280' : 'rgba(148,163,184,0.5)', width: 1 } },
             labelLayout: {
+                draggable: true,
                 moveOverlap: 'shiftXY',
                 hideOverlap: false
             },
@@ -1600,7 +1589,7 @@ function getBubbleOption(data, title, forExport) {
 function pieBubbleRenderItem(params, api) {
     const x = api.coord([api.value(0), api.value(1)])[0];
     const y = api.coord([api.value(0), api.value(1)])[1];
-    const radius = Math.sqrt(api.value(2)) * 1.6;
+    const radius = Math.sqrt(api.value(2)) * 1.36;
     const share = api.value(8) / 100;
     const baseColor = api.value(7);
     const startAngle = -Math.PI / 2;
@@ -1632,7 +1621,6 @@ function pieBubbleRenderItem(params, api) {
 function getPieOption(data, title, forExport) {
     const axis = getBubbleAxis(forExport);
     const labelColor = forExport ? '#000000' : '#e2e8f0';
-    const positions = getLabelPositions(data);
     return {
         backgroundColor: forExport ? '#ffffff' : 'transparent',
         title: forExport ? { text: title, left: 'center', top: 20, textStyle: { color: '#000000', fontSize: 22, fontWeight: 'bold' } } : undefined,
@@ -1660,8 +1648,8 @@ function getPieOption(data, title, forExport) {
                 label: {
                     show: true,
                     formatter: function(p) { return p.data[3] + '\n三一 ' + p.data[8] + '%'; },
-                    position: function(p) { return positions[p.dataIndex] || 'top'; },
-                    distance: forExport ? 16 : 10,
+                    position: 'top',
+                    distance: forExport ? 12 : 8,
                     color: labelColor,
                     fontSize: forExport ? 14 : 11,
                     lineHeight: forExport ? 16 : 13,
@@ -1669,8 +1657,8 @@ function getPieOption(data, title, forExport) {
                     textBorderColor: forExport ? '#ffffff' : '#0f172a',
                     textBorderWidth: forExport ? 3 : 2
                 },
-                labelLine: { show: true, length: 6, length2: 6, lineStyle: { color: forExport ? '#6b7280' : 'rgba(148,163,184,0.5)', width: 1 } },
                 labelLayout: {
+                    draggable: true,
                     moveOverlap: 'shiftXY',
                     hideOverlap: false
                 },
