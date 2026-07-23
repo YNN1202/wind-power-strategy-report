@@ -1452,35 +1452,31 @@ c9.setOption({
 
 // 气泡图1.0数据：[能力, 吸引力, 市场规模, 标签, 市场规模得分, 增长得分, 盈利得分, 颜色, 三一份额%]
 const bubbleData1 = [
-    [7.8, 9.50, 2200, '绿电直连\n+负荷企业', 9.5, 9.5, 9.5, '#6d28d9', 18],
-    [8.1, 8.05, 3800, '大基地\n+发电企业', 9.5, 4.0, 5.0, '#0e7490', 16],
-    [7.6, 8.05, 700, '存量改造\n+发电企业', 8.0, 8.5, 8.0, '#15803d', 16],
-    [7.4, 7.80, 800, '分散式\n+负荷企业', 8.0, 8.0, 7.0, '#0f766e', 15],
-    [7.7, 7.75, 1000, '分散式\n+发电企业', 8.5, 8.0, 5.0, '#1d4ed8', 15],
-    [7.3, 7.65, 1000, '大基地\n+转售企业', 8.5, 7.0, 5.0, '#4338ca', 14],
-    [7.2, 7.65, 1000, '常规集中式\n+负荷企业', 8.5, 7.0, 5.0, '#7e22ce', 14],
-    [7.9, 7.60, 2400, '常规集中式\n+发电企业', 9.0, 3.0, 5.0, '#334155', 13],
-    [7.5, 7.05, 200, '绿电直连\n+传统能源', 6.0, 9.5, 9.5, '#b45309', 9],
-    [7.0, 6.40, 300, '存量改造\n+转售企业', 6.5, 8.5, 5.0, '#be185d', 6]
+    [7.8, 9.50, 2200, '绿电直连\n+负荷企业', 9.5, 9.5, 9.5, '#7c3aed', 18],
+    [8.1, 8.05, 3800, '大基地\n+发电企业', 9.5, 4.0, 5.0, '#0891b2', 16],
+    [7.6, 8.05, 700, '存量改造\n+发电企业', 8.0, 8.5, 8.0, '#16a34a', 16],
+    [7.4, 7.80, 800, '分散式\n+负荷企业', 8.0, 8.0, 7.0, '#0d9488', 15],
+    [7.7, 7.75, 1000, '分散式\n+发电企业', 8.5, 8.0, 5.0, '#2563eb', 15],
+    [7.3, 7.65, 1000, '大基地\n+转售企业', 8.5, 7.0, 5.0, '#4f46e5', 14],
+    [7.2, 7.65, 1000, '常规集中式\n+负荷企业', 8.5, 7.0, 5.0, '#9333ea', 14],
+    [7.9, 7.60, 2400, '常规集中式\n+发电企业', 9.0, 3.0, 5.0, '#475569', 13],
+    [7.5, 7.05, 200, '绿电直连\n+传统能源', 6.0, 9.5, 9.5, '#d97706', 9],
+    [7.0, 6.40, 300, '存量改造\n+转售企业', 6.5, 8.5, 5.0, '#db2777', 6]
 ];
 
 // 气泡图2.0数据
 const bubbleData2 = [
-    [7.8, 8.35, 546, '绿电直连\n+负荷企业', 8.0, 8.5, 9.5, '#6d28d9', 17],
-    [7.7, 8.20, 1456, '绿电直连\n+发电企业', 9.0, 9.0, 5.0, '#1d4ed8', 17],
-    [8.1, 7.90, 1736, '大基地\n+发电企业', 9.5, 2.5, 5.0, '#0e7490', 16],
-    [7.9, 7.45, 1344, '常规集中式\n+发电企业', 9.0, 1.5, 5.0, '#334155', 14],
-    [7.4, 7.35, 208, '绿电直连\n+传统能源', 6.5, 9.0, 9.5, '#c2410c', 13],
-    [7.6, 7.30, 448, '存量改造\n+发电企业', 8.0, 1.0, 8.0, '#15803d', 13],
-    [7.5, 6.90, 616, '分散式\n+发电企业', 8.0, 3.0, 5.0, '#b45309', 10],
-    [7.3, 6.70, 651, '大基地\n+负荷企业', 8.0, 1.0, 5.0, '#7e22ce', 9],
-    [7.2, 6.70, 504, '常规集中式\n+负荷企业', 8.0, 1.0, 5.0, '#0f766e', 9],
-    [7.0, 6.35, 279, '大基地\n+转售企业', 6.5, 8.0, 5.0, '#4338ca', 6]
+    [7.8, 8.35, 546, '绿电直连\n+负荷企业', 8.0, 8.5, 9.5, '#7c3aed', 17],
+    [7.7, 8.20, 1456, '绿电直连\n+发电企业', 9.0, 9.0, 5.0, '#2563eb', 17],
+    [8.1, 7.90, 1736, '大基地\n+发电企业', 9.5, 2.5, 5.0, '#0891b2', 16],
+    [7.9, 7.45, 1344, '常规集中式\n+发电企业', 9.0, 1.5, 5.0, '#475569', 14],
+    [7.4, 7.35, 208, '绿电直连\n+传统能源', 6.5, 9.0, 9.5, '#ea580c', 13],
+    [7.6, 7.30, 448, '存量改造\n+发电企业', 8.0, 1.0, 8.0, '#16a34a', 13],
+    [7.5, 6.90, 616, '分散式\n+发电企业', 8.0, 3.0, 5.0, '#d97706', 10],
+    [7.3, 6.70, 651, '大基地\n+负荷企业', 8.0, 1.0, 5.0, '#9333ea', 9],
+    [7.2, 6.70, 504, '常规集中式\n+负荷企业', 8.0, 1.0, 5.0, '#0d9488', 9],
+    [7.0, 6.35, 279, '大基地\n+转售企业', 6.5, 8.0, 5.0, '#4f46e5', 6]
 ];
-
-// 标签初始方位（避免重叠/遮挡）：与 bubbleData1/bubbleData2 顺序一一对应
-const labelPositions1 = ['top', 'right', 'left', 'bottom-left', 'top', 'bottom', 'left', 'right', 'bottom', 'left'];
-const labelPositions2 = ['top', 'left', 'top-right', 'right', 'left', 'top', 'right', 'bottom-right', 'left', 'bottom'];
 
 // 公共Tooltip
 function bubbleTooltipFormatter(p) {
@@ -1540,17 +1536,10 @@ const bubbleMarkLine = {
     label: { show: false }
 };
 
-function getLabelPositions(data) {
-    if (data === bubbleData1) return labelPositions1;
-    if (data === bubbleData2) return labelPositions2;
-    return [];
-}
-
 // 气泡图模式配置
 function getBubbleOption(data, title, forExport) {
     const labelColor = forExport ? '#000000' : '#e2e8f0';
     const axis = getBubbleAxis(forExport);
-    const positions = getLabelPositions(data);
     return {
         backgroundColor: forExport ? '#ffffff' : 'transparent',
         title: forExport ? { text: title, left: 'center', top: 20, textStyle: { color: '#000000', fontSize: 22, fontWeight: 'bold' } } : undefined,
@@ -1577,14 +1566,14 @@ function getBubbleOption(data, title, forExport) {
             label: {
                 show: true,
                 formatter: function(p) { return p.data[3]; },
-                position: function(p) { return positions[p.dataIndex] || 'top'; },
+                position: 'top',
                 distance: forExport ? 12 : 8,
                 color: labelColor,
                 fontSize: forExport ? 14 : 11,
                 lineHeight: forExport ? 16 : 13,
                 fontWeight: 'bold',
-                textBorderColor: forExport ? 'transparent' : '#0f172a',
-                textBorderWidth: forExport ? 0 : 2
+                textBorderColor: forExport ? '#ffffff' : '#0f172a',
+                textBorderWidth: forExport ? 3 : 2
             },
             labelLayout: {
                 draggable: true,
@@ -1632,7 +1621,6 @@ function pieBubbleRenderItem(params, api) {
 function getPieOption(data, title, forExport) {
     const axis = getBubbleAxis(forExport);
     const labelColor = forExport ? '#000000' : '#e2e8f0';
-    const positions = getLabelPositions(data);
     return {
         backgroundColor: forExport ? '#ffffff' : 'transparent',
         title: forExport ? { text: title, left: 'center', top: 20, textStyle: { color: '#000000', fontSize: 22, fontWeight: 'bold' } } : undefined,
@@ -1660,14 +1648,14 @@ function getPieOption(data, title, forExport) {
                 label: {
                     show: true,
                     formatter: function(p) { return p.data[3] + '\n三一 ' + p.data[8] + '%'; },
-                    position: function(p) { return positions[p.dataIndex] || 'top'; },
+                    position: 'top',
                     distance: forExport ? 12 : 8,
                     color: labelColor,
                     fontSize: forExport ? 14 : 11,
                     lineHeight: forExport ? 16 : 13,
                     fontWeight: 'bold',
-                    textBorderColor: forExport ? 'transparent' : '#0f172a',
-                    textBorderWidth: forExport ? 0 : 2
+                    textBorderColor: forExport ? '#ffffff' : '#0f172a',
+                    textBorderWidth: forExport ? 3 : 2
                 },
                 labelLayout: {
                     draggable: true,
