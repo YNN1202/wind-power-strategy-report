@@ -1193,7 +1193,7 @@
 
         <div class="card">
             <h3>2029年机会点能力-吸引力气泡图 1.0（预测版本）</h3>
-            <div class="chart-box chart-box-lg" id="chart-forecast2029-bubble"></div>
+            <div class="chart-box chart-box-lg" id="chart-forecast2029-bubble" style="height:650px;"></div>
             <div style="text-align:right; margin-top:8px;">
                 <label style="color:#e2e8f0; font-size:13px; margin-right:12px; cursor:pointer;">
                     <input type="checkbox" id="toggle-pie-1" onchange="toggleBubblePie(1)" style="vertical-align:middle; margin-right:4px;"> 显示饼图（三一份额）
@@ -1202,7 +1202,8 @@
             </div>
             <div class="note">
                 <strong>象限说明：</strong>坐标轴范围为我司能力6-10、市场吸引力6-10。以三一能力6分、市场吸引力8分为界，上半区域（吸引力≥8）为<strong>重点突破区</strong>，下半区域（吸引力<8）为<strong>保持优势区</strong>。气泡大小代表市场规模。<br>
-                <strong>能力分说明：</strong>我司能力分数参考关键成功要素评分表中“29三一”预测列（综合7.8分），按各机会点所需核心能力进行差异化赋分。
+                <strong>能力分说明：</strong>我司能力分数参考关键成功要素评分表中“29三一”预测列（综合7.8分），按各机会点所需核心能力进行差异化赋分。<br>
+                <strong>三一份额说明：</strong>份额按吸引力与项目分级策略估算，范围 <strong>5%-18%</strong>。勾选“显示饼图”后，气泡以饼图呈现，红色扇区代表三一份额。
             </div>
         </div>
 
@@ -1212,6 +1213,11 @@
                 <strong>数据来源：</strong>基于自行预测全国总装机量（2026-2029年：80/80/100/100 GW）及客户、项目两个维度装机占比（外圈为2029年预估）交叉测算。客户维度 2029 年占比：传统发电企业 56%、负荷企业 21%、传统能源（非发电）企业 8%、风场开发转售企业 9%，另有 <strong>6%</strong> 为未公开或无法判别的容量，未纳入本次机会点计算。吸引力仍按市场规模（70%）+增长空间（10%）+盈利空间（20%）计算；增长空间按2025-2029年各细分市场规模CAGR估算。<br>
                 <strong>能力分说明：</strong>我司能力分数参考关键成功要素评分表中“29三一”预测列（综合7.8分），按各机会点所需核心能力进行差异化赋分，10个机会点能力分均不重复。<br>
                 <strong>三一份额说明：</strong>综合考虑机会点吸引力、三一能力匹配度及项目分级策略（重点攻关 vs 资源放弃）估算可获取市场份额，范围控制在 <strong>5%-18%</strong>。吸引力越高、与公司能力越匹配的机会点份额越高；低吸引力或非重点项目份额下调。勾选“显示饼图”后，气泡以饼图呈现，红色扇区代表三一份额。
+            </div>
+            <div style="text-align:right; margin:10px 0 6px;">
+                <span style="color:#94a3b8; font-size:12px; margin-right:10px;">可下载CSV后修改数据并发送给我更新图表</span>
+                <button onclick="exportOpportunityCSV(1)" style="padding:5px 12px; background:#475569; color:#fff; border:none; border-radius:4px; cursor:pointer; font-size:12px; margin-right:8px;">导出CSV（1.0预测版）</button>
+                <button onclick="exportOpportunityCSV(2)" style="padding:5px 12px; background:#475569; color:#fff; border:none; border-radius:4px; cursor:pointer; font-size:12px;">导出CSV（2.0自行预测版）</button>
             </div>
             <table>
                 <thead><tr><th>机会点</th><th>项目类型</th><th>客户类型</th><th>2029年市场规模<br>(万kW)</th><th>市场规模<br>得分</th><th>增长空间<br>得分</th><th>盈利空间<br>得分</th><th>吸引力</th><th>我司能力</th><th>三一份额</th></tr></thead>
@@ -1228,7 +1234,7 @@
                     <tr><td><strong>大基地 + 风场开发转售企业</strong></td><td>大基地</td><td>风场开发转售企业</td><td>279</td><td>6.5</td><td>8.0</td><td>5.0</td><td><strong>6.35</strong></td><td>7.0</td><td>6%</td></tr>
                 </tbody>
             </table>
-            <div class="chart-box chart-box-lg" id="chart-forecast2029-bubble-v2"></div>
+            <div class="chart-box chart-box-lg" id="chart-forecast2029-bubble-v2" style="height:650px;"></div>
             <div style="text-align:right; margin-top:8px;">
                 <label style="color:#e2e8f0; font-size:13px; margin-right:12px; cursor:pointer;">
                     <input type="checkbox" id="toggle-pie-2" onchange="toggleBubblePie(2)" style="vertical-align:middle; margin-right:4px;"> 显示饼图（三一份额）
@@ -1446,30 +1452,30 @@ c9.setOption({
 
 // 气泡图1.0数据：[能力, 吸引力, 市场规模, 标签, 市场规模得分, 增长得分, 盈利得分, 颜色, 三一份额%]
 const bubbleData1 = [
-    [7.8, 9.50, 2200, '绿电直连\n+负荷企业', 9.5, 9.5, 9.5, '#8b5cf6', 18],
-    [8.1, 8.05, 3800, '大基地\n+发电企业', 9.5, 4.0, 5.0, '#06b6d4', 16],
-    [7.6, 8.05, 700, '存量改造\n+发电企业', 8.0, 8.5, 8.0, '#22c55e', 16],
-    [7.4, 7.80, 800, '分散式\n+负荷企业', 8.0, 8.0, 7.0, '#14b8a6', 15],
-    [7.7, 7.75, 1000, '分散式\n+发电企业', 8.5, 8.0, 5.0, '#3b82f6', 15],
-    [7.3, 7.65, 1000, '大基地\n+转售企业', 8.5, 7.0, 5.0, '#6366f1', 14],
-    [7.2, 7.65, 1000, '常规集中式\n+负荷企业', 8.5, 7.0, 5.0, '#a855f7', 14],
-    [7.9, 7.60, 2400, '常规集中式\n+发电企业', 9.0, 3.0, 5.0, '#64748b', 13],
-    [7.5, 7.05, 200, '绿电直连\n+传统能源', 6.0, 9.5, 9.5, '#f59e0b', 9],
-    [7.0, 6.40, 300, '存量改造\n+转售企业', 6.5, 8.5, 5.0, '#ec4899', 6]
+    [7.8, 9.50, 2200, '绿电直连\n+负荷企业', 9.5, 9.5, 9.5, '#7c3aed', 18],
+    [8.1, 8.05, 3800, '大基地\n+发电企业', 9.5, 4.0, 5.0, '#0891b2', 16],
+    [7.6, 8.05, 700, '存量改造\n+发电企业', 8.0, 8.5, 8.0, '#16a34a', 16],
+    [7.4, 7.80, 800, '分散式\n+负荷企业', 8.0, 8.0, 7.0, '#0d9488', 15],
+    [7.7, 7.75, 1000, '分散式\n+发电企业', 8.5, 8.0, 5.0, '#2563eb', 15],
+    [7.3, 7.65, 1000, '大基地\n+转售企业', 8.5, 7.0, 5.0, '#4f46e5', 14],
+    [7.2, 7.65, 1000, '常规集中式\n+负荷企业', 8.5, 7.0, 5.0, '#9333ea', 14],
+    [7.9, 7.60, 2400, '常规集中式\n+发电企业', 9.0, 3.0, 5.0, '#475569', 13],
+    [7.5, 7.05, 200, '绿电直连\n+传统能源', 6.0, 9.5, 9.5, '#d97706', 9],
+    [7.0, 6.40, 300, '存量改造\n+转售企业', 6.5, 8.5, 5.0, '#db2777', 6]
 ];
 
 // 气泡图2.0数据
 const bubbleData2 = [
-    [7.8, 8.35, 546, '绿电直连\n+负荷企业', 8.0, 8.5, 9.5, '#8b5cf6', 17],
-    [7.7, 8.20, 1456, '绿电直连\n+发电企业', 9.0, 9.0, 5.0, '#3b82f6', 17],
-    [8.1, 7.90, 1736, '大基地\n+发电企业', 9.5, 2.5, 5.0, '#06b6d4', 16],
-    [7.9, 7.45, 1344, '常规集中式\n+发电企业', 9.0, 1.5, 5.0, '#64748b', 14],
-    [7.4, 7.35, 208, '绿电直连\n+传统能源', 6.5, 9.0, 9.5, '#f97316', 13],
-    [7.6, 7.30, 448, '存量改造\n+发电企业', 8.0, 1.0, 8.0, '#22c55e', 13],
-    [7.5, 6.90, 616, '分散式\n+发电企业', 8.0, 3.0, 5.0, '#f59e0b', 10],
-    [7.3, 6.70, 651, '大基地\n+负荷企业', 8.0, 1.0, 5.0, '#a855f7', 9],
-    [7.2, 6.70, 504, '常规集中式\n+负荷企业', 8.0, 1.0, 5.0, '#14b8a6', 9],
-    [7.0, 6.35, 279, '大基地\n+转售企业', 6.5, 8.0, 5.0, '#6366f1', 6]
+    [7.8, 8.35, 546, '绿电直连\n+负荷企业', 8.0, 8.5, 9.5, '#7c3aed', 17],
+    [7.7, 8.20, 1456, '绿电直连\n+发电企业', 9.0, 9.0, 5.0, '#2563eb', 17],
+    [8.1, 7.90, 1736, '大基地\n+发电企业', 9.5, 2.5, 5.0, '#0891b2', 16],
+    [7.9, 7.45, 1344, '常规集中式\n+发电企业', 9.0, 1.5, 5.0, '#475569', 14],
+    [7.4, 7.35, 208, '绿电直连\n+传统能源', 6.5, 9.0, 9.5, '#ea580c', 13],
+    [7.6, 7.30, 448, '存量改造\n+发电企业', 8.0, 1.0, 8.0, '#16a34a', 13],
+    [7.5, 6.90, 616, '分散式\n+发电企业', 8.0, 3.0, 5.0, '#d97706', 10],
+    [7.3, 6.70, 651, '大基地\n+负荷企业', 8.0, 1.0, 5.0, '#9333ea', 9],
+    [7.2, 6.70, 504, '常规集中式\n+负荷企业', 8.0, 1.0, 5.0, '#0d9488', 9],
+    [7.0, 6.35, 279, '大基地\n+转售企业', 6.5, 8.0, 5.0, '#4f46e5', 6]
 ];
 
 // 公共Tooltip
@@ -1486,9 +1492,9 @@ function bubbleTooltipFormatter(p) {
 
 // 公共坐标轴
 function getBubbleAxis(forExport) {
-    const color = forExport ? '#374151' : '#94a3b8';
+    const color = forExport ? '#000000' : '#94a3b8';
     const splitColor = forExport ? '#e5e7eb' : '#1e3a5f';
-    const nameColor = forExport ? '#111827' : '#e2e8f0';
+    const nameColor = forExport ? '#000000' : '#e2e8f0';
     const fontSize = forExport ? 14 : 12;
     return {
         xAxis: {
@@ -1499,7 +1505,7 @@ function getBubbleAxis(forExport) {
             min: 6,
             max: 10,
             axisLabel: { color: color, fontSize: fontSize },
-            axisLine: { lineStyle: { color: forExport ? '#9ca3af' : '#334155' } },
+            axisLine: { lineStyle: { color: forExport ? '#6b7280' : '#334155' } },
             nameTextStyle: { color: nameColor, fontSize: forExport ? 15 : 13, fontWeight: 'bold' },
             splitLine: { lineStyle: { color: splitColor } }
         },
@@ -1511,7 +1517,7 @@ function getBubbleAxis(forExport) {
             min: 6,
             max: 10,
             axisLabel: { color: color, fontSize: fontSize },
-            axisLine: { lineStyle: { color: forExport ? '#9ca3af' : '#334155' } },
+            axisLine: { lineStyle: { color: forExport ? '#6b7280' : '#334155' } },
             nameTextStyle: { color: nameColor, fontSize: forExport ? 15 : 13, fontWeight: 'bold' },
             splitLine: { lineStyle: { color: splitColor } }
         }
@@ -1532,20 +1538,20 @@ const bubbleMarkLine = {
 
 // 气泡图模式配置
 function getBubbleOption(data, title, forExport) {
-    const labelColor = forExport ? '#1f2937' : '#e2e8f0';
+    const labelColor = forExport ? '#000000' : '#e2e8f0';
     const axis = getBubbleAxis(forExport);
     return {
         backgroundColor: forExport ? '#ffffff' : 'transparent',
-        title: forExport ? { text: title, left: 'center', top: 20, textStyle: { color: '#111827', fontSize: 22, fontWeight: 'bold' } } : undefined,
+        title: forExport ? { text: title, left: 'center', top: 20, textStyle: { color: '#000000', fontSize: 22, fontWeight: 'bold' } } : undefined,
         toolbox: forExport ? undefined : toolbox,
         tooltip: {
             trigger: 'item',
             backgroundColor: forExport ? 'rgba(255,255,255,0.96)' : 'rgba(15,23,42,0.9)',
             borderColor: forExport ? '#d1d5db' : '#1e3a5f',
-            textStyle: { color: forExport ? '#1f2937' : '#e2e8f0' },
+            textStyle: { color: forExport ? '#000000' : '#e2e8f0' },
             formatter: bubbleTooltipFormatter
         },
-        grid: forExport ? { left: '14%', right: '8%', bottom: '14%', top: '14%' } : { left: '10%', right: '10%', bottom: '12%', top: '10%' },
+        grid: forExport ? { left: '14%', right: '8%', bottom: '12%', top: '12%' } : { left: '10%', right: '10%', bottom: '10%', top: '8%' },
         xAxis: axis.xAxis,
         yAxis: axis.yAxis,
         series: [{
@@ -1561,10 +1567,17 @@ function getBubbleOption(data, title, forExport) {
                 show: true,
                 formatter: function(p) { return p.data[3]; },
                 position: 'top',
+                distance: 8,
                 color: labelColor,
                 fontSize: forExport ? 14 : 11,
                 lineHeight: forExport ? 16 : 13,
-                fontWeight: 'bold'
+                fontWeight: 'bold',
+                textBorderColor: forExport ? '#ffffff' : '#0f172a',
+                textBorderWidth: forExport ? 3 : 2
+            },
+            labelLayout: {
+                moveOverlap: 'shiftXY',
+                hideOverlap: false
             },
             markLine: bubbleMarkLine
         }]
@@ -1606,19 +1619,19 @@ function pieBubbleRenderItem(params, api) {
 // 饼图模式配置
 function getPieOption(data, title, forExport) {
     const axis = getBubbleAxis(forExport);
-    const labelColor = forExport ? '#1f2937' : '#e2e8f0';
+    const labelColor = forExport ? '#000000' : '#e2e8f0';
     return {
         backgroundColor: forExport ? '#ffffff' : 'transparent',
-        title: forExport ? { text: title, left: 'center', top: 20, textStyle: { color: '#111827', fontSize: 22, fontWeight: 'bold' } } : undefined,
+        title: forExport ? { text: title, left: 'center', top: 20, textStyle: { color: '#000000', fontSize: 22, fontWeight: 'bold' } } : undefined,
         toolbox: forExport ? undefined : toolbox,
         tooltip: {
             trigger: 'item',
             backgroundColor: forExport ? 'rgba(255,255,255,0.96)' : 'rgba(15,23,42,0.9)',
             borderColor: forExport ? '#d1d5db' : '#1e3a5f',
-            textStyle: { color: forExport ? '#1f2937' : '#e2e8f0' },
+            textStyle: { color: forExport ? '#000000' : '#e2e8f0' },
             formatter: bubbleTooltipFormatter
         },
-        grid: forExport ? { left: '14%', right: '8%', bottom: '14%', top: '14%' } : { left: '10%', right: '10%', bottom: '12%', top: '10%' },
+        grid: forExport ? { left: '14%', right: '8%', bottom: '12%', top: '12%' } : { left: '10%', right: '10%', bottom: '10%', top: '8%' },
         xAxis: axis.xAxis,
         yAxis: axis.yAxis,
         series: [
@@ -1635,10 +1648,17 @@ function getPieOption(data, title, forExport) {
                     show: true,
                     formatter: function(p) { return p.data[3] + '\n三一 ' + p.data[8] + '%'; },
                     position: 'top',
+                    distance: 8,
                     color: labelColor,
                     fontSize: forExport ? 14 : 11,
                     lineHeight: forExport ? 16 : 13,
-                    fontWeight: 'bold'
+                    fontWeight: 'bold',
+                    textBorderColor: forExport ? '#ffffff' : '#0f172a',
+                    textBorderWidth: forExport ? 3 : 2
+                },
+                labelLayout: {
+                    moveOverlap: 'shiftXY',
+                    hideOverlap: false
                 },
                 markLine: bubbleMarkLine
             }
@@ -1667,7 +1687,7 @@ function exportBubbleChart(version) {
 
     const tempDiv = document.createElement('div');
     tempDiv.style.width = '1600px';
-    tempDiv.style.height = '1000px';
+    tempDiv.style.height = '1200px';
     tempDiv.style.position = 'absolute';
     tempDiv.style.left = '-9999px';
     tempDiv.style.top = '0';
@@ -1691,6 +1711,46 @@ function exportBubbleChart(version) {
         tempChart.dispose();
         document.body.removeChild(tempDiv);
     }, 500);
+}
+
+// 导出机会点数据为CSV（便于用户自行修改后重新生成图表）
+function exportOpportunityCSV(version) {
+    const data = version === 1 ? bubbleData1 : bubbleData2;
+    const versionLabel = version === 1 ? '1.0预测版' : '2.0自行预测版';
+    const headers = ['机会点标签', '项目类型', '客户类型', '2029年市场规模(万kW)', '市场规模得分', '增长空间得分', '盈利空间得分', '吸引力', '我司能力', '三一份额(%)', '颜色'];
+    const rows = data.map(function(item) {
+        const labelParts = item[3].replace(/\n/g, '+').split('+');
+        const projectType = labelParts[0] || '';
+        const customerType = labelParts[1] || '';
+        return [
+            item[3].replace(/\n/g, ' + '),
+            projectType,
+            customerType,
+            item[2],
+            item[4],
+            item[5],
+            item[6],
+            item[1],
+            item[0],
+            item[8],
+            item[7]
+        ];
+    });
+    const csvContent = '\ufeff' + [headers.join(','), ...rows.map(function(r) {
+        return r.map(function(cell) {
+            const s = String(cell).replace(/"/g, '""');
+            return s.indexOf(',') >= 0 || s.indexOf('\n') >= 0 || s.indexOf('"') >= 0 ? '"' + s + '"' : s;
+        }).join(',');
+    })].join('\n');
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = '2029机会点数据_' + versionLabel + '.csv';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
 }
 
 // 图表10：2029年能力-吸引力气泡图
