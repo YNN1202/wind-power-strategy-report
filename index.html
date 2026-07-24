@@ -1529,12 +1529,17 @@ function getBubbleAxis(forExport, maxY) {
     };
 }
 
-// 公共象限线（根据纵轴最大值动态调整竖线长度）
-function getBubbleMarkLine(maxY) {
+// 公共象限线（根据纵轴最大值动态调整竖线长度，导出时用实线避免中断感）
+function getBubbleMarkLine(maxY, forExport) {
     return {
         silent: true,
         symbol: 'none',
-        lineStyle: { type: 'dashed', color: '#64748b', width: 1.5 },
+        z: 100,
+        lineStyle: {
+            type: forExport ? 'solid' : 'dashed',
+            color: forExport ? '#374151' : '#64748b',
+            width: forExport ? 2.5 : 1.5
+        },
         data: [
             [{ coord: [6, 6] }, { coord: [6, maxY] }],
             [{ coord: [6, 8] }, { coord: [10, 8] }]
@@ -1564,7 +1569,7 @@ function getBubbleOption(data, title, forExport) {
         yAxis: axis.yAxis,
         series: [{
             type: 'scatter',
-            symbolSize: function(d) { return Math.sqrt(d[2]) * (forExport ? 2.6 : 1.885); },
+            symbolSize: function(d) { return Math.sqrt(d[2]) * (forExport ? 3.5 : 1.885); },
             data: data,
             itemStyle: {
                 color: function(p) { return p.data[7]; },
@@ -1589,7 +1594,7 @@ function getBubbleOption(data, title, forExport) {
                 moveOverlap: 'shiftXY',
                 hideOverlap: false
             },
-            markLine: getBubbleMarkLine(maxY)
+            markLine: getBubbleMarkLine(maxY, forExport)
         }]
     };
 }
@@ -1672,7 +1677,7 @@ function getPieOption(data, title, forExport) {
                     moveOverlap: 'shiftXY',
                     hideOverlap: false
                 },
-                markLine: getBubbleMarkLine(maxY)
+                markLine: getBubbleMarkLine(maxY, forExport)
             }
         ]
     };
