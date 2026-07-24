@@ -1317,12 +1317,10 @@ function getBubbleToolbox(version) {
         right: 15,
         top: 5,
         feature: {
-            saveAsImage: {
+            myExport: {
                 show: true,
                 title: '导出PNG',
-                type: 'png',
-                pixelRatio: 2,
-                backgroundColor: '#ffffff',
+                icon: 'path://M4.7,22.9L29.3,45.5L54.7,23.4M4.6,43.6L4.6,58L55.2,58L55.2,43.6',
                 onclick: function() { exportBubbleChart(version); }
             }
         }
@@ -1528,11 +1526,11 @@ function getBubbleMaxY(data) {
 // 公共坐标轴：横纵轴均从5开始，到10结束
 function getBubbleAxis(forExport, maxY, fontScale) {
     fontScale = fontScale || 1;
-    const color = forExport ? '#000000' : '#e2e8f0';
+    const color = forExport ? '#1e293b' : '#e2e8f0';
     const splitColor = forExport ? '#e5e7eb' : '#1e3a5f';
     const nameColor = forExport ? '#000000' : '#e2e8f0';
-    const fontSize = (forExport ? 18 : 12) * fontScale;
-    const nameFontSize = (forExport ? 20 : 13) * fontScale;
+    const fontSize = (forExport ? 20 : 12) * fontScale;
+    const nameFontSize = (forExport ? 26 : 13) * fontScale;
     return {
         xAxis: {
             type: 'value',
