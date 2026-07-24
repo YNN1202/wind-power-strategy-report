@@ -1205,7 +1205,7 @@
                     <label style="color:#e2e8f0; font-size:13px; margin-right:12px; cursor:pointer;">
                         <input type="checkbox" id="toggle-pie-1" onchange="toggleBubblePie(1)" style="vertical-align:middle; margin-right:4px;"> 显示饼图（三一份额）
                     </label>
-                    <button onclick="exportBubbleChart(1)" style="padding:6px 14px; background:#3b82f6; color:#fff; border:none; border-radius:4px; cursor:pointer; font-size:13px;">导出PNG（适配PPT白底，高清）</button>
+                    <button onclick="triggerSaveAsImage(1)" style="padding:6px 14px; background:#3b82f6; color:#fff; border:none; border-radius:4px; cursor:pointer; font-size:13px;">导出PNG（适配PPT白底，高清）</button>
                 </div>
                 <div class="note">
                     <strong>图表说明：</strong>坐标轴范围为我司能力5-10、市场吸引力5-10。横坐标表示我司能力，纵坐标表示市场吸引力，气泡大小代表市场规模。<br>
@@ -1250,7 +1250,7 @@
                 <label style="color:#e2e8f0; font-size:13px; margin-right:12px; cursor:pointer;">
                     <input type="checkbox" id="toggle-pie-2" onchange="toggleBubblePie(2)" style="vertical-align:middle; margin-right:4px;"> 显示饼图（三一份额）
                 </label>
-                <button onclick="exportBubbleChart(2)" style="padding:6px 14px; background:#3b82f6; color:#fff; border:none; border-radius:4px; cursor:pointer; font-size:13px;">导出PNG（适配PPT白底，高清）</button>
+                <button onclick="triggerSaveAsImage(2)" style="padding:6px 14px; background:#3b82f6; color:#fff; border:none; border-radius:4px; cursor:pointer; font-size:13px;">导出PNG（适配PPT白底，高清）</button>
             </div>
             <div class="note">
                 <strong>图表说明：</strong>与1.0一致，坐标轴范围为我司能力5-10、市场吸引力5-10。横坐标表示我司能力，纵坐标表示市场吸引力，气泡大小代表市场规模。
@@ -1310,18 +1310,19 @@ function showSection(id) {
 // 通用工具箱（PNG导出，下载时背景替换为白色）
 const toolbox = { show: true, right: 15, top: 5, feature: { saveAsImage: { show: true, title: '导出PNG', type: 'png', pixelRatio: 2, backgroundColor: '#ffffff' } } };
 
-// 气泡图/饼图专用工具箱：点击下载图标时调用高清白底导出
+// 气泡图/饼图专用工具箱：默认导出PNG，背景替换为白色，保留网页端阴影与饱和度样式
 function getBubbleToolbox(version) {
     return {
         show: true,
         right: 15,
         top: 5,
         feature: {
-            myExport: {
+            saveAsImage: {
                 show: true,
                 title: '导出PNG',
-                icon: 'path://M4.7,22.9L29.3,45.5L54.7,23.4M4.6,43.6L4.6,58L55.2,58L55.2,43.6',
-                onclick: function() { exportBubbleChart(version); }
+                type: 'png',
+                pixelRatio: 2,
+                backgroundColor: '#ffffff'
             }
         }
     };
@@ -1526,9 +1527,9 @@ function getBubbleMaxY(data) {
 // 公共坐标轴：横纵轴均从5开始，到10结束
 function getBubbleAxis(forExport, maxY, fontScale) {
     fontScale = fontScale || 1;
-    const color = forExport ? '#1e293b' : '#e2e8f0';
+    const color = forExport ? '#1e293b' : '#94a3b8';
     const splitColor = forExport ? '#e5e7eb' : '#1e3a5f';
-    const nameColor = forExport ? '#000000' : '#e2e8f0';
+    const nameColor = forExport ? '#000000' : '#94a3b8';
     const fontSize = (forExport ? 20 : 12) * fontScale;
     const nameFontSize = (forExport ? 26 : 13) * fontScale;
     return {
@@ -1723,6 +1724,12 @@ function toggleV1Section() {
         section.style.display = 'none';
         btn.innerHTML = '展开 1.0 预测版本 ▼';
     }
+}
+
+// 触发图表默认saveAsImage导出（与右上角下载图标一致）
+function triggerSaveAsImage(version) {
+    const chart = version === 1 ? c10 : c11;
+    chart.dispatchAction({ type: 'saveAsImage' });
 }
 
 // 刷新气泡/饼图（应用当前字号与形状缩放）
