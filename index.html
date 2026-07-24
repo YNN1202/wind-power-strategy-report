@@ -1478,16 +1478,6 @@ const bubbleData2 = [
     [7.0, 6.35, 279, '大基地\n+转售企业', 6.5, 8.0, 5.0, '#4f46e5', 6]
 ];
 
-// 标签初始方位（优先上方，若上方被占用则换到左右下）：与 bubbleData1/bubbleData2 顺序一一对应
-const labelPositions1 = ['top', 'right', 'left', 'bottom-left', 'top', 'bottom', 'left', 'right', 'bottom', 'left'];
-const labelPositions2 = ['top', 'left', 'top-right', 'right', 'left', 'bottom', 'right', 'bottom-right', 'left', 'bottom'];
-
-function getLabelPositions(data) {
-    if (data === bubbleData1) return labelPositions1;
-    if (data === bubbleData2) return labelPositions2;
-    return [];
-}
-
 // 公共Tooltip
 function bubbleTooltipFormatter(p) {
     return '<strong>' + p.data[3].replace(/\n/g, '') + '</strong><br/>' +
@@ -1558,7 +1548,6 @@ function getBubbleOption(data, title, forExport) {
     const labelColor = forExport ? '#000000' : '#e2e8f0';
     const maxY = getBubbleMaxY(data);
     const axis = getBubbleAxis(forExport, maxY);
-    const positions = getLabelPositions(data);
     return {
         backgroundColor: forExport ? '#ffffff' : 'transparent',
         title: forExport ? { text: title, left: 'center', top: 20, textStyle: { color: '#000000', fontSize: 22, fontWeight: 'bold' } } : undefined,
@@ -1585,7 +1574,7 @@ function getBubbleOption(data, title, forExport) {
             label: {
                 show: true,
                 formatter: function(p) { return p.data[3]; },
-                position: function(p) { return positions[p.dataIndex] || 'top'; },
+                position: 'top',
                 distance: forExport ? 12 : 8,
                 color: labelColor,
                 fontSize: forExport ? 14 : 11,
@@ -1641,7 +1630,6 @@ function getPieOption(data, title, forExport) {
     const maxY = getBubbleMaxY(data);
     const axis = getBubbleAxis(forExport, maxY);
     const labelColor = forExport ? '#000000' : '#e2e8f0';
-    const positions = getLabelPositions(data);
     return {
         backgroundColor: forExport ? '#ffffff' : 'transparent',
         title: forExport ? { text: title, left: 'center', top: 20, textStyle: { color: '#000000', fontSize: 22, fontWeight: 'bold' } } : undefined,
@@ -1669,7 +1657,7 @@ function getPieOption(data, title, forExport) {
                 label: {
                     show: true,
                     formatter: function(p) { return p.data[3] + '\n三一 ' + p.data[8] + '%'; },
-                    position: function(p) { return positions[p.dataIndex] || 'top'; },
+                    position: 'top',
                     distance: forExport ? 12 : 8,
                     color: labelColor,
                     fontSize: forExport ? 14 : 11,
