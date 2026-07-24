@@ -1301,8 +1301,27 @@ function showSection(id) {
     setTimeout(() => window.dispatchEvent(new Event('resize')), 100);
 }
 
-// 通用工具箱（PNG导出）
-const toolbox = { show: true, right: 15, top: 5, feature: { saveAsImage: { show: true, title: '导出PNG', type: 'png', pixelRatio: 2, backgroundColor: '#0a0e27' } } };
+// 通用工具箱（PNG导出，下载时背景替换为白色）
+const toolbox = { show: true, right: 15, top: 5, feature: { saveAsImage: { show: true, title: '导出PNG', type: 'png', pixelRatio: 2, backgroundColor: '#ffffff' } } };
+
+// 气泡图/饼图专用工具箱：点击下载图标时调用高清白底导出
+function getBubbleToolbox(version) {
+    return {
+        show: true,
+        right: 15,
+        top: 5,
+        feature: {
+            saveAsImage: {
+                show: true,
+                title: '导出PNG',
+                type: 'png',
+                pixelRatio: 2,
+                backgroundColor: '#ffffff',
+                onclick: function() { exportBubbleChart(version); }
+            }
+        }
+    };
+}
 
 // 图表1：2024 vs 2025对比
 const c1 = echarts.init(document.getElementById('chart-overview-compare'));
@@ -1541,7 +1560,7 @@ function getBubbleMarkLine(maxY, forExport) {
 }
 
 // 气泡图模式配置
-function getBubbleOption(data, title, forExport, fontScale, shapeScale) {
+function getBubbleOption(data, title, forExport, fontScale, shapeScale, chartToolbox) {
     fontScale = fontScale || 1;
     shapeScale = shapeScale || 1;
     const labelColor = forExport ? '#000000' : '#e2e8f0';
@@ -1550,7 +1569,7 @@ function getBubbleOption(data, title, forExport, fontScale, shapeScale) {
     return {
         backgroundColor: forExport ? '#ffffff' : 'transparent',
         title: forExport ? { text: title, left: 'center', top: 24, textStyle: { color: '#000000', fontSize: 26 * fontScale, fontWeight: 'bold' } } : undefined,
-        toolbox: forExport ? undefined : toolbox,
+        toolbox: forExport ? undefined : (chartToolbox || toolbox),
         tooltip: {
             trigger: 'item',
             backgroundColor: forExport ? 'rgba(255,255,255,0.96)' : 'rgba(15,23,42,0.9)',
@@ -1629,7 +1648,7 @@ function createPieBubbleRenderItem(shapeScale) {
 }
 
 // 饼图模式配置
-function getPieOption(data, title, forExport, fontScale, shapeScale) {
+function getPieOption(data, title, forExport, fontScale, shapeScale, chartToolbox) {
     fontScale = fontScale || 1;
     shapeScale = shapeScale || 1;
     const maxY = getBubbleMaxY(data);
@@ -1638,7 +1657,7 @@ function getPieOption(data, title, forExport, fontScale, shapeScale) {
     return {
         backgroundColor: forExport ? '#ffffff' : 'transparent',
         title: forExport ? { text: title, left: 'center', top: 24, textStyle: { color: '#000000', fontSize: 26 * fontScale, fontWeight: 'bold' } } : undefined,
-        toolbox: forExport ? undefined : toolbox,
+        toolbox: forExport ? undefined : (chartToolbox || toolbox),
         tooltip: {
             trigger: 'item',
             backgroundColor: forExport ? 'rgba(255,255,255,0.96)' : 'rgba(15,23,42,0.9)',
@@ -1695,7 +1714,8 @@ function refreshBubbleChart(version) {
     const title = version === 1 ? '2029年机会点能力-吸引力气泡图 1.0（预测版本）' : '2029年机会点能力-吸引力气泡图 2.0（自行预测版）';
     const fontScale = chartFontScales[version];
     const shapeScale = chartShapeScales[version];
-    chart.setOption(isPie ? getPieOption(data, title, false, fontScale, shapeScale) : getBubbleOption(data, title, false, fontScale, shapeScale), true);
+    const chartToolbox = getBubbleToolbox(version);
+    chart.setOption(isPie ? getPieOption(data, title, false, fontScale, shapeScale, chartToolbox) : getBubbleOption(data, title, false, fontScale, shapeScale, chartToolbox), true);
 }
 
 // 调整字号
@@ -1792,11 +1812,11 @@ function exportOpportunityCSV(version) {
 
 // 图表10：2029年能力-吸引力气泡图
 const c10 = echarts.init(document.getElementById('chart-forecast2029-bubble'));
-c10.setOption(getBubbleOption(bubbleData1, '2029年机会点能力-吸引力气泡图 1.0（预测版本）', false));
+c10.setOption(getBubbleOption(bubbleData1, '2029年机会点能力-吸引力气泡图 1.0（预测版本）', false, 1, 1, getBubbleToolbox(1)));
 
 // 图表11：2029年能力-吸引力气泡图 2.0（自行预测版）
 const c11 = echarts.init(document.getElementById('chart-forecast2029-bubble-v2'));
-c11.setOption(getBubbleOption(bubbleData2, '2029年机会点能力-吸引力气泡图 2.0（自行预测版）', false));
+c11.setOption(getBubbleOption(bubbleData2, '2029年机会点能力-吸引力气泡图 2.0（自行预测版）', false, 1, 1, getBubbleToolbox(2)));
 
 window.addEventListener('resize', () => { [c1,c2,c3,c4,c5,c6,c7,c8,c9,c10,c11].forEach(c => c.resize()); });
 </script>
