@@ -1478,6 +1478,16 @@ const bubbleData2 = [
     [7.0, 6.35, 279, '大基地\n+转售企业', 6.5, 8.0, 5.0, '#4f46e5', 6]
 ];
 
+// 标签初始方位（优先上方，若上方被占用则换到左右下）：与 bubbleData1/bubbleData2 顺序一一对应
+const labelPositions1 = ['top', 'right', 'left', 'bottom-left', 'top', 'bottom', 'left', 'right', 'bottom', 'left'];
+const labelPositions2 = ['top', 'left', 'top-right', 'right', 'left', 'bottom', 'right', 'bottom-right', 'left', 'bottom'];
+
+function getLabelPositions(data) {
+    if (data === bubbleData1) return labelPositions1;
+    if (data === bubbleData2) return labelPositions2;
+    return [];
+}
+
 // 公共Tooltip
 function bubbleTooltipFormatter(p) {
     return '<strong>' + p.data[3].replace(/\n/g, '') + '</strong><br/>' +
@@ -1490,8 +1500,13 @@ function bubbleTooltipFormatter(p) {
            '三一份额: ' + p.data[8] + '%';
 }
 
+function getBubbleMaxY(data) {
+    const max = Math.max.apply(null, data.map(function(d) { return d[1]; }));
+    return max > 9 ? 10 : 9;
+}
+
 // 公共坐标轴
-function getBubbleAxis(forExport) {
+function getBubbleAxis(forExport, maxY) {
     const color = forExport ? '#000000' : '#94a3b8';
     const splitColor = forExport ? '#e5e7eb' : '#1e3a5f';
     const nameColor = forExport ? '#000000' : '#e2e8f0';
@@ -1511,11 +1526,11 @@ function getBubbleAxis(forExport) {
         },
         yAxis: {
             type: 'value',
-            name: '市场吸引力（0-10）',
+            name: '市场吸引力（0-' + maxY + '）',
             nameLocation: 'center',
             nameGap: forExport ? 45 : 40,
             min: 6,
-            max: 10,
+            max: maxY,
             axisLabel: { color: color, fontSize: fontSize },
             axisLine: { lineStyle: { color: forExport ? '#6b7280' : '#334155' } },
             nameTextStyle: { color: nameColor, fontSize: forExport ? 15 : 13, fontWeight: 'bold' },
@@ -1524,22 +1539,26 @@ function getBubbleAxis(forExport) {
     };
 }
 
-// 公共象限线
-const bubbleMarkLine = {
-    silent: true,
-    symbol: 'none',
-    lineStyle: { type: 'dashed', color: '#64748b', width: 1.5 },
-    data: [
-        [{ coord: [6, 6] }, { coord: [6, 10] }],
-        [{ coord: [6, 8] }, { coord: [10, 8] }]
-    ],
-    label: { show: false }
-};
+// 公共象限线（根据纵轴最大值动态调整竖线长度）
+function getBubbleMarkLine(maxY) {
+    return {
+        silent: true,
+        symbol: 'none',
+        lineStyle: { type: 'dashed', color: '#64748b', width: 1.5 },
+        data: [
+            [{ coord: [6, 6] }, { coord: [6, maxY] }],
+            [{ coord: [6, 8] }, { coord: [10, 8] }]
+        ],
+        label: { show: false }
+    };
+}
 
 // 气泡图模式配置
 function getBubbleOption(data, title, forExport) {
     const labelColor = forExport ? '#000000' : '#e2e8f0';
-    const axis = getBubbleAxis(forExport);
+    const maxY = getBubbleMaxY(data);
+    const axis = getBubbleAxis(forExport, maxY);
+    const positions = getLabelPositions(data);
     return {
         backgroundColor: forExport ? '#ffffff' : 'transparent',
         title: forExport ? { text: title, left: 'center', top: 20, textStyle: { color: '#000000', fontSize: 22, fontWeight: 'bold' } } : undefined,
@@ -1566,7 +1585,7 @@ function getBubbleOption(data, title, forExport) {
             label: {
                 show: true,
                 formatter: function(p) { return p.data[3]; },
-                position: 'top',
+                position: function(p) { return positions[p.dataIndex] || 'top'; },
                 distance: forExport ? 12 : 8,
                 color: labelColor,
                 fontSize: forExport ? 14 : 11,
@@ -1580,7 +1599,7 @@ function getBubbleOption(data, title, forExport) {
                 moveOverlap: 'shiftXY',
                 hideOverlap: false
             },
-            markLine: bubbleMarkLine
+            markLine: getBubbleMarkLine(maxY)
         }]
     };
 }
@@ -1619,8 +1638,10 @@ function pieBubbleRenderItem(params, api) {
 
 // 饼图模式配置
 function getPieOption(data, title, forExport) {
-    const axis = getBubbleAxis(forExport);
+    const maxY = getBubbleMaxY(data);
+    const axis = getBubbleAxis(forExport, maxY);
     const labelColor = forExport ? '#000000' : '#e2e8f0';
+    const positions = getLabelPositions(data);
     return {
         backgroundColor: forExport ? '#ffffff' : 'transparent',
         title: forExport ? { text: title, left: 'center', top: 20, textStyle: { color: '#000000', fontSize: 22, fontWeight: 'bold' } } : undefined,
@@ -1648,7 +1669,7 @@ function getPieOption(data, title, forExport) {
                 label: {
                     show: true,
                     formatter: function(p) { return p.data[3] + '\n三一 ' + p.data[8] + '%'; },
-                    position: 'top',
+                    position: function(p) { return positions[p.dataIndex] || 'top'; },
                     distance: forExport ? 12 : 8,
                     color: labelColor,
                     fontSize: forExport ? 14 : 11,
@@ -1662,7 +1683,7 @@ function getPieOption(data, title, forExport) {
                     moveOverlap: 'shiftXY',
                     hideOverlap: false
                 },
-                markLine: bubbleMarkLine
+                markLine: getBubbleMarkLine(maxY)
             }
         ]
     };
