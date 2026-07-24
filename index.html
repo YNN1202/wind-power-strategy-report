@@ -1188,25 +1188,30 @@
             </div>
         </div>
 
-        <div class="card">
-            <h3>2029年机会点能力-吸引力气泡图 1.0（预测版本）</h3>
-            <div class="chart-box chart-box-lg" id="chart-forecast2029-bubble" style="height:650px;"></div>
-            <div style="text-align:right; margin-top:8px;">
-                <span style="color:#94a3b8; font-size:12px; margin-right:6px;">字号</span>
-                <button onclick="adjustBubbleFontSize(1, 1)" style="padding:4px 10px; background:#475569; color:#fff; border:none; border-radius:4px; cursor:pointer; font-size:13px; margin-right:4px;">A+</button>
-                <button onclick="adjustBubbleFontSize(1, -1)" style="padding:4px 10px; background:#475569; color:#fff; border:none; border-radius:4px; cursor:pointer; font-size:13px; margin-right:12px;">A-</button>
-                <span style="color:#94a3b8; font-size:12px; margin-right:6px;">形状</span>
-                <button onclick="adjustBubbleShapeSize(1, 1)" style="padding:4px 10px; background:#475569; color:#fff; border:none; border-radius:4px; cursor:pointer; font-size:13px; margin-right:4px;">放大</button>
-                <button onclick="adjustBubbleShapeSize(1, -1)" style="padding:4px 10px; background:#475569; color:#fff; border:none; border-radius:4px; cursor:pointer; font-size:13px; margin-right:12px;">缩小</button>
-                <label style="color:#e2e8f0; font-size:13px; margin-right:12px; cursor:pointer;">
-                    <input type="checkbox" id="toggle-pie-1" onchange="toggleBubblePie(1)" style="vertical-align:middle; margin-right:4px;"> 显示饼图（三一份额）
-                </label>
-                <button onclick="exportBubbleChart(1)" style="padding:6px 14px; background:#3b82f6; color:#fff; border:none; border-radius:4px; cursor:pointer; font-size:13px;">导出PNG（适配PPT白底，高清）</button>
-            </div>
-            <div class="note">
-                <strong>图表说明：</strong>坐标轴范围为我司能力5-10、市场吸引力5-10。横坐标表示我司能力，纵坐标表示市场吸引力，气泡大小代表市场规模。<br>
-                <strong>能力分说明：</strong>我司能力分数参考关键成功要素评分表中“29三一”预测列（综合7.8分），按各机会点所需核心能力进行差异化赋分。<br>
-                <strong>三一份额说明：</strong>份额按吸引力与项目分级策略估算，范围 <strong>5%-18%</strong>。勾选“显示饼图”后，气泡以饼图呈现，红色扇区代表三一份额。
+        <div style="text-align:center; margin:20px 0 10px;">
+            <button id="btn-toggle-v1" onclick="toggleV1Section()" style="padding:8px 20px; background:#475569; color:#fff; border:none; border-radius:6px; cursor:pointer; font-size:14px;">展开 1.0 预测版本 ▼</button>
+        </div>
+        <div id="v1-bubble-section" style="display:none;">
+            <div class="card">
+                <h3>2029年机会点能力-吸引力气泡图 1.0（预测版本）</h3>
+                <div class="chart-box chart-box-lg" id="chart-forecast2029-bubble" style="height:650px;"></div>
+                <div style="text-align:right; margin-top:8px;">
+                    <span style="color:#94a3b8; font-size:12px; margin-right:6px;">字号</span>
+                    <button onclick="adjustBubbleFontSize(1, 1)" style="padding:4px 10px; background:#475569; color:#fff; border:none; border-radius:4px; cursor:pointer; font-size:13px; margin-right:4px;">A+</button>
+                    <button onclick="adjustBubbleFontSize(1, -1)" style="padding:4px 10px; background:#475569; color:#fff; border:none; border-radius:4px; cursor:pointer; font-size:13px; margin-right:12px;">A-</button>
+                    <span style="color:#94a3b8; font-size:12px; margin-right:6px;">形状</span>
+                    <button onclick="adjustBubbleShapeSize(1, 1)" style="padding:4px 10px; background:#475569; color:#fff; border:none; border-radius:4px; cursor:pointer; font-size:13px; margin-right:4px;">放大</button>
+                    <button onclick="adjustBubbleShapeSize(1, -1)" style="padding:4px 10px; background:#475569; color:#fff; border:none; border-radius:4px; cursor:pointer; font-size:13px; margin-right:12px;">缩小</button>
+                    <label style="color:#e2e8f0; font-size:13px; margin-right:12px; cursor:pointer;">
+                        <input type="checkbox" id="toggle-pie-1" onchange="toggleBubblePie(1)" style="vertical-align:middle; margin-right:4px;"> 显示饼图（三一份额）
+                    </label>
+                    <button onclick="exportBubbleChart(1)" style="padding:6px 14px; background:#3b82f6; color:#fff; border:none; border-radius:4px; cursor:pointer; font-size:13px;">导出PNG（适配PPT白底，高清）</button>
+                </div>
+                <div class="note">
+                    <strong>图表说明：</strong>坐标轴范围为我司能力5-10、市场吸引力5-10。横坐标表示我司能力，纵坐标表示市场吸引力，气泡大小代表市场规模。<br>
+                    <strong>能力分说明：</strong>我司能力分数参考关键成功要素评分表中“29三一”预测列（综合7.8分），按各机会点所需核心能力进行差异化赋分。<br>
+                    <strong>三一份额说明：</strong>份额按吸引力与项目分级策略估算，范围 <strong>5%-18%</strong>。勾选“显示饼图”后，气泡以饼图呈现，红色扇区代表三一份额。
+                </div>
             </div>
         </div>
 
@@ -1706,6 +1711,20 @@ function getPieOption(data, title, forExport, fontScale, shapeScale, chartToolbo
 // 切换气泡/饼图模式
 function toggleBubblePie(version) {
     refreshBubbleChart(version);
+}
+
+// 展开/收起 1.0 气泡图区域
+function toggleV1Section() {
+    const section = document.getElementById('v1-bubble-section');
+    const btn = document.getElementById('btn-toggle-v1');
+    if (section.style.display === 'none') {
+        section.style.display = 'block';
+        btn.innerHTML = '收起 1.0 预测版本 ▲';
+        if (c10) c10.resize();
+    } else {
+        section.style.display = 'none';
+        btn.innerHTML = '展开 1.0 预测版本 ▼';
+    }
 }
 
 // 刷新气泡/饼图（应用当前字号与形状缩放）
