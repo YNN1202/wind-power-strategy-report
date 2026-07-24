@@ -1204,7 +1204,7 @@
                 <button onclick="exportBubbleChart(1)" style="padding:6px 14px; background:#3b82f6; color:#fff; border:none; border-radius:4px; cursor:pointer; font-size:13px;">导出PNG（适配PPT白底，高清）</button>
             </div>
             <div class="note">
-                <strong>图表说明：</strong>坐标轴范围为我司能力6-10、市场吸引力6-10。横坐标表示我司能力，纵坐标表示市场吸引力，气泡大小代表市场规模。<br>
+                <strong>图表说明：</strong>坐标轴范围为我司能力5-10、市场吸引力5-10。横坐标表示我司能力，纵坐标表示市场吸引力，气泡大小代表市场规模。<br>
                 <strong>能力分说明：</strong>我司能力分数参考关键成功要素评分表中“29三一”预测列（综合7.8分），按各机会点所需核心能力进行差异化赋分。<br>
                 <strong>三一份额说明：</strong>份额按吸引力与项目分级策略估算，范围 <strong>5%-18%</strong>。勾选“显示饼图”后，气泡以饼图呈现，红色扇区代表三一份额。
             </div>
@@ -1248,7 +1248,7 @@
                 <button onclick="exportBubbleChart(2)" style="padding:6px 14px; background:#3b82f6; color:#fff; border:none; border-radius:4px; cursor:pointer; font-size:13px;">导出PNG（适配PPT白底，高清）</button>
             </div>
             <div class="note">
-                <strong>图表说明：</strong>与1.0一致，坐标轴范围为我司能力6-10、市场吸引力6-10。横坐标表示我司能力，纵坐标表示市场吸引力，气泡大小代表市场规模。
+                <strong>图表说明：</strong>与1.0一致，坐标轴范围为我司能力5-10、市场吸引力5-10。横坐标表示我司能力，纵坐标表示市场吸引力，气泡大小代表市场规模。
             </div>
         </div>
 
@@ -1515,12 +1515,12 @@ const chartShapeScales = { 1: 1, 2: 1 };
 const FONT_SCALE_STEP = 1.1;
 const SHAPE_SCALE_STEP = 1.15;
 
+// 纵轴最大值固定为10
 function getBubbleMaxY(data) {
-    const max = Math.max.apply(null, data.map(function(d) { return d[1]; }));
-    return max > 9 ? 10 : 9;
+    return 10;
 }
 
-// 公共坐标轴
+// 公共坐标轴：横纵轴均从5开始，到10结束
 function getBubbleAxis(forExport, maxY, fontScale) {
     fontScale = fontScale || 1;
     const color = forExport ? '#000000' : '#94a3b8';
@@ -1531,10 +1531,10 @@ function getBubbleAxis(forExport, maxY, fontScale) {
     return {
         xAxis: {
             type: 'value',
-            name: '三一能力（0-10）',
+            name: '三一能力（5-10）',
             nameLocation: 'center',
             nameGap: forExport ? 45 : 30,
-            min: 6,
+            min: 5,
             max: 10,
             axisLabel: { color: color, fontSize: fontSize },
             axisLine: { lineStyle: { color: forExport ? '#6b7280' : '#334155' } },
@@ -1543,11 +1543,11 @@ function getBubbleAxis(forExport, maxY, fontScale) {
         },
         yAxis: {
             type: 'value',
-            name: '市场吸引力（0-' + maxY + '）',
+            name: '市场吸引力（5-10）',
             nameLocation: 'center',
             nameGap: forExport ? 55 : 40,
-            min: 6,
-            max: maxY,
+            min: 5,
+            max: 10,
             axisLabel: { color: color, fontSize: fontSize },
             axisLine: { lineStyle: { color: forExport ? '#6b7280' : '#334155' } },
             nameTextStyle: { color: nameColor, fontSize: nameFontSize, fontWeight: 'bold' },
