@@ -1192,6 +1192,12 @@
             <h3>2029年机会点能力-吸引力气泡图 1.0（预测版本）</h3>
             <div class="chart-box chart-box-lg" id="chart-forecast2029-bubble" style="height:650px;"></div>
             <div style="text-align:right; margin-top:8px;">
+                <span style="color:#94a3b8; font-size:12px; margin-right:6px;">字号</span>
+                <button onclick="adjustBubbleFontSize(1, 1)" style="padding:4px 10px; background:#475569; color:#fff; border:none; border-radius:4px; cursor:pointer; font-size:13px; margin-right:4px;">A+</button>
+                <button onclick="adjustBubbleFontSize(1, -1)" style="padding:4px 10px; background:#475569; color:#fff; border:none; border-radius:4px; cursor:pointer; font-size:13px; margin-right:12px;">A-</button>
+                <span style="color:#94a3b8; font-size:12px; margin-right:6px;">形状</span>
+                <button onclick="adjustBubbleShapeSize(1, 1)" style="padding:4px 10px; background:#475569; color:#fff; border:none; border-radius:4px; cursor:pointer; font-size:13px; margin-right:4px;">放大</button>
+                <button onclick="adjustBubbleShapeSize(1, -1)" style="padding:4px 10px; background:#475569; color:#fff; border:none; border-radius:4px; cursor:pointer; font-size:13px; margin-right:12px;">缩小</button>
                 <label style="color:#e2e8f0; font-size:13px; margin-right:12px; cursor:pointer;">
                     <input type="checkbox" id="toggle-pie-1" onchange="toggleBubblePie(1)" style="vertical-align:middle; margin-right:4px;"> 显示饼图（三一份额）
                 </label>
@@ -1229,6 +1235,12 @@
             </table>
             <div class="chart-box chart-box-lg" id="chart-forecast2029-bubble-v2" style="height:650px;"></div>
             <div style="text-align:right; margin-top:8px;">
+                <span style="color:#94a3b8; font-size:12px; margin-right:6px;">字号</span>
+                <button onclick="adjustBubbleFontSize(2, 1)" style="padding:4px 10px; background:#475569; color:#fff; border:none; border-radius:4px; cursor:pointer; font-size:13px; margin-right:4px;">A+</button>
+                <button onclick="adjustBubbleFontSize(2, -1)" style="padding:4px 10px; background:#475569; color:#fff; border:none; border-radius:4px; cursor:pointer; font-size:13px; margin-right:12px;">A-</button>
+                <span style="color:#94a3b8; font-size:12px; margin-right:6px;">形状</span>
+                <button onclick="adjustBubbleShapeSize(2, 1)" style="padding:4px 10px; background:#475569; color:#fff; border:none; border-radius:4px; cursor:pointer; font-size:13px; margin-right:4px;">放大</button>
+                <button onclick="adjustBubbleShapeSize(2, -1)" style="padding:4px 10px; background:#475569; color:#fff; border:none; border-radius:4px; cursor:pointer; font-size:13px; margin-right:12px;">缩小</button>
                 <label style="color:#e2e8f0; font-size:13px; margin-right:12px; cursor:pointer;">
                     <input type="checkbox" id="toggle-pie-2" onchange="toggleBubblePie(2)" style="vertical-align:middle; margin-right:4px;"> 显示饼图（三一份额）
                 </label>
@@ -1476,17 +1488,25 @@ function bubbleTooltipFormatter(p) {
            '三一份额: ' + p.data[8] + '%';
 }
 
+// 气泡图/饼图字号与形状缩放状态（供1.0、2.0图表独立调节）
+const chartFontScales = { 1: 1, 2: 1 };
+const chartShapeScales = { 1: 1, 2: 1 };
+const FONT_SCALE_STEP = 1.1;
+const SHAPE_SCALE_STEP = 1.15;
+
 function getBubbleMaxY(data) {
     const max = Math.max.apply(null, data.map(function(d) { return d[1]; }));
     return max > 9 ? 10 : 9;
 }
 
 // 公共坐标轴
-function getBubbleAxis(forExport, maxY) {
+function getBubbleAxis(forExport, maxY, fontScale) {
+    fontScale = fontScale || 1;
     const color = forExport ? '#000000' : '#94a3b8';
     const splitColor = forExport ? '#e5e7eb' : '#1e3a5f';
     const nameColor = forExport ? '#000000' : '#e2e8f0';
-    const fontSize = forExport ? 18 : 12;
+    const fontSize = (forExport ? 18 : 12) * fontScale;
+    const nameFontSize = (forExport ? 20 : 13) * fontScale;
     return {
         xAxis: {
             type: 'value',
@@ -1497,7 +1517,7 @@ function getBubbleAxis(forExport, maxY) {
             max: 10,
             axisLabel: { color: color, fontSize: fontSize },
             axisLine: { lineStyle: { color: forExport ? '#6b7280' : '#334155' } },
-            nameTextStyle: { color: nameColor, fontSize: forExport ? 20 : 13, fontWeight: 'bold' },
+            nameTextStyle: { color: nameColor, fontSize: nameFontSize, fontWeight: 'bold' },
             splitLine: { lineStyle: { color: splitColor } }
         },
         yAxis: {
@@ -1509,7 +1529,7 @@ function getBubbleAxis(forExport, maxY) {
             max: maxY,
             axisLabel: { color: color, fontSize: fontSize },
             axisLine: { lineStyle: { color: forExport ? '#6b7280' : '#334155' } },
-            nameTextStyle: { color: nameColor, fontSize: forExport ? 20 : 13, fontWeight: 'bold' },
+            nameTextStyle: { color: nameColor, fontSize: nameFontSize, fontWeight: 'bold' },
             splitLine: { lineStyle: { color: splitColor } }
         }
     };
@@ -1521,13 +1541,15 @@ function getBubbleMarkLine(maxY, forExport) {
 }
 
 // 气泡图模式配置
-function getBubbleOption(data, title, forExport) {
+function getBubbleOption(data, title, forExport, fontScale, shapeScale) {
+    fontScale = fontScale || 1;
+    shapeScale = shapeScale || 1;
     const labelColor = forExport ? '#000000' : '#e2e8f0';
     const maxY = getBubbleMaxY(data);
-    const axis = getBubbleAxis(forExport, maxY);
+    const axis = getBubbleAxis(forExport, maxY, fontScale);
     return {
         backgroundColor: forExport ? '#ffffff' : 'transparent',
-        title: forExport ? { text: title, left: 'center', top: 24, textStyle: { color: '#000000', fontSize: 26, fontWeight: 'bold' } } : undefined,
+        title: forExport ? { text: title, left: 'center', top: 24, textStyle: { color: '#000000', fontSize: 26 * fontScale, fontWeight: 'bold' } } : undefined,
         toolbox: forExport ? undefined : toolbox,
         tooltip: {
             trigger: 'item',
@@ -1541,7 +1563,7 @@ function getBubbleOption(data, title, forExport) {
         yAxis: axis.yAxis,
         series: [{
             type: 'scatter',
-            symbolSize: function(d) { return Math.sqrt(d[2]) * (forExport ? 3.5 : 1.885); },
+            symbolSize: function(d) { return Math.sqrt(d[2]) * (forExport ? 3.5 : 1.885) * shapeScale; },
             data: data,
             itemStyle: {
                 color: function(p) { return p.data[7]; },
@@ -1555,8 +1577,8 @@ function getBubbleOption(data, title, forExport) {
                 position: 'top',
                 distance: forExport ? 16 : 8,
                 color: labelColor,
-                fontSize: forExport ? 18 : 11,
-                lineHeight: forExport ? 20 : 13,
+                fontSize: (forExport ? 18 : 11) * fontScale,
+                lineHeight: (forExport ? 20 : 13) * fontScale,
                 fontWeight: 'bold',
                 textBorderColor: forExport ? 'transparent' : '#0f172a',
                 textBorderWidth: forExport ? 0 : 2
@@ -1571,46 +1593,51 @@ function getBubbleOption(data, title, forExport) {
     };
 }
 
-// 饼图气泡自定义渲染
-function pieBubbleRenderItem(params, api) {
-    const x = api.coord([api.value(0), api.value(1)])[0];
-    const y = api.coord([api.value(0), api.value(1)])[1];
-    const radius = Math.sqrt(api.value(2)) * 1.36;
-    const share = api.value(8) / 100;
-    const baseColor = api.value(7);
-    const startAngle = -Math.PI / 2;
-    const sanyEndAngle = startAngle + share * 2 * Math.PI;
-    const totalEndAngle = startAngle + 2 * Math.PI;
+function sectorShape(cx, cy, r, start, end) {
+    return { cx: cx, cy: cy, r: r, r0: 0, startAngle: start, endAngle: end };
+}
 
-    function sectorShape(cx, cy, r, start, end) {
-        return { cx: cx, cy: cy, r: r, r0: 0, startAngle: start, endAngle: end };
-    }
+// 饼图气泡自定义渲染（工厂函数，支持半径缩放）
+function createPieBubbleRenderItem(shapeScale) {
+    shapeScale = shapeScale || 1;
+    return function(params, api) {
+        const x = api.coord([api.value(0), api.value(1)])[0];
+        const y = api.coord([api.value(0), api.value(1)])[1];
+        const radius = Math.sqrt(api.value(2)) * 1.36 * shapeScale;
+        const share = api.value(8) / 100;
+        const baseColor = api.value(7);
+        const startAngle = -Math.PI / 2;
+        const sanyEndAngle = startAngle + share * 2 * Math.PI;
+        const totalEndAngle = startAngle + 2 * Math.PI;
 
-    return {
-        type: 'group',
-        children: [
-            {
-                type: 'sector',
-                shape: sectorShape(x, y, radius, sanyEndAngle, totalEndAngle),
-                style: { fill: baseColor, opacity: 1, stroke: '#ffffff', lineWidth: 1.5 }
-            },
-            {
-                type: 'sector',
-                shape: sectorShape(x, y, radius, startAngle, sanyEndAngle),
-                style: { fill: '#ef4444', opacity: 1, stroke: '#ffffff', lineWidth: 1.5 }
-            }
-        ]
+        return {
+            type: 'group',
+            children: [
+                {
+                    type: 'sector',
+                    shape: sectorShape(x, y, radius, sanyEndAngle, totalEndAngle),
+                    style: { fill: baseColor, opacity: 1, stroke: '#ffffff', lineWidth: 1.5 }
+                },
+                {
+                    type: 'sector',
+                    shape: sectorShape(x, y, radius, startAngle, sanyEndAngle),
+                    style: { fill: '#ef4444', opacity: 1, stroke: '#ffffff', lineWidth: 1.5 }
+                }
+            ]
+        };
     };
 }
 
 // 饼图模式配置
-function getPieOption(data, title, forExport) {
+function getPieOption(data, title, forExport, fontScale, shapeScale) {
+    fontScale = fontScale || 1;
+    shapeScale = shapeScale || 1;
     const maxY = getBubbleMaxY(data);
-    const axis = getBubbleAxis(forExport, maxY);
+    const axis = getBubbleAxis(forExport, maxY, fontScale);
     const labelColor = forExport ? '#000000' : '#e2e8f0';
     return {
         backgroundColor: forExport ? '#ffffff' : 'transparent',
-        title: forExport ? { text: title, left: 'center', top: 24, textStyle: { color: '#000000', fontSize: 26, fontWeight: 'bold' } } : undefined,
+        title: forExport ? { text: title, left: 'center', top: 24, textStyle: { color: '#000000', fontSize: 26 * fontScale, fontWeight: 'bold' } } : undefined,
         toolbox: forExport ? undefined : toolbox,
         tooltip: {
             trigger: 'item',
@@ -1626,7 +1653,7 @@ function getPieOption(data, title, forExport) {
             {
                 type: 'custom',
                 data: data,
-                renderItem: pieBubbleRenderItem
+                renderItem: createPieBubbleRenderItem(shapeScale)
             },
             {
                 type: 'scatter',
@@ -1638,8 +1665,8 @@ function getPieOption(data, title, forExport) {
                     position: 'top',
                     distance: forExport ? 16 : 8,
                     color: labelColor,
-                    fontSize: forExport ? 18 : 11,
-                    lineHeight: forExport ? 20 : 13,
+                    fontSize: (forExport ? 18 : 11) * fontScale,
+                    lineHeight: (forExport ? 20 : 13) * fontScale,
                     fontWeight: 'bold',
                     textBorderColor: forExport ? 'transparent' : '#0f172a',
                     textBorderWidth: forExport ? 0 : 2
@@ -1657,11 +1684,32 @@ function getPieOption(data, title, forExport) {
 
 // 切换气泡/饼图模式
 function toggleBubblePie(version) {
+    refreshBubbleChart(version);
+}
+
+// 刷新气泡/饼图（应用当前字号与形状缩放）
+function refreshBubbleChart(version) {
     const isPie = document.getElementById('toggle-pie-' + version).checked;
     const chart = version === 1 ? c10 : c11;
     const data = version === 1 ? bubbleData1 : bubbleData2;
     const title = version === 1 ? '2029年机会点能力-吸引力气泡图 1.0（预测版本）' : '2029年机会点能力-吸引力气泡图 2.0（自行预测版）';
-    chart.setOption(isPie ? getPieOption(data, title, false) : getBubbleOption(data, title, false), true);
+    const fontScale = chartFontScales[version];
+    const shapeScale = chartShapeScales[version];
+    chart.setOption(isPie ? getPieOption(data, title, false, fontScale, shapeScale) : getBubbleOption(data, title, false, fontScale, shapeScale), true);
+}
+
+// 调整字号
+function adjustBubbleFontSize(version, delta) {
+    if (delta > 0) chartFontScales[version] *= FONT_SCALE_STEP;
+    else chartFontScales[version] /= FONT_SCALE_STEP;
+    refreshBubbleChart(version);
+}
+
+// 调整气泡/饼图大小
+function adjustBubbleShapeSize(version, delta) {
+    if (delta > 0) chartShapeScales[version] *= SHAPE_SCALE_STEP;
+    else chartShapeScales[version] /= SHAPE_SCALE_STEP;
+    refreshBubbleChart(version);
 }
 
 // 导出高清PNG（适配PPT白底）
