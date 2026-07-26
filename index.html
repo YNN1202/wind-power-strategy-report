@@ -1575,6 +1575,8 @@ function getBubbleOption(data, title, forExport, fontScale, shapeScale, chartToo
     const labelColor = forExport ? '#000000' : '#e2e8f0';
     const maxY = getBubbleMaxY(data);
     const axis = getBubbleAxis(forExport, maxY, fontScale);
+    const sizeCoeff = unit === 'GW' ? 8.0 : 1.885;
+    const exportSizeCoeff = unit === 'GW' ? 15.0 : 3.5;
     return {
         backgroundColor: forExport ? '#ffffff' : 'transparent',
         title: forExport ? { text: title, left: 'center', top: 24, textStyle: { color: '#000000', fontSize: 26 * fontScale, fontWeight: 'bold' } } : undefined,
@@ -1591,7 +1593,7 @@ function getBubbleOption(data, title, forExport, fontScale, shapeScale, chartToo
         yAxis: axis.yAxis,
         series: [{
             type: 'scatter',
-            symbolSize: function(d) { return Math.sqrt(d[2]) * (forExport ? 3.5 : 1.885) * shapeScale; },
+            symbolSize: function(d) { return Math.sqrt(d[2]) * (forExport ? exportSizeCoeff : sizeCoeff) * shapeScale; },
             data: data,
             itemStyle: {
                 color: function(p) { return p.data[7]; },
@@ -1625,13 +1627,14 @@ function sectorShape(cx, cy, r, start, end) {
     return { cx: cx, cy: cy, r: r, r0: 0, startAngle: start, endAngle: end };
 }
 
-// 饼图气泡自定义渲染（工厂函数，支持半径缩放）
-function createPieBubbleRenderItem(shapeScale) {
+// 饼图气泡自定义渲染（工厂函数，支持半径缩放与单位适配）
+function createPieBubbleRenderItem(shapeScale, unit) {
     shapeScale = shapeScale || 1;
+    const radiusCoeff = unit === 'GW' ? 4.0 : 1.36;
     return function(params, api) {
         const x = api.coord([api.value(0), api.value(1)])[0];
         const y = api.coord([api.value(0), api.value(1)])[1];
-        const radius = Math.sqrt(api.value(2)) * 1.36 * shapeScale;
+        const radius = Math.sqrt(api.value(2)) * radiusCoeff * shapeScale;
         const share = api.value(8) / 100;
         const baseColor = api.value(7);
         const startAngle = -Math.PI / 2;
@@ -1682,7 +1685,7 @@ function getPieOption(data, title, forExport, fontScale, shapeScale, chartToolbo
             {
                 type: 'custom',
                 data: data,
-                renderItem: createPieBubbleRenderItem(shapeScale)
+                renderItem: createPieBubbleRenderItem(shapeScale, unit)
             },
             {
                 type: 'scatter',
